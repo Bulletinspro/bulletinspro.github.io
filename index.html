@@ -3,152 +3,211 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BulletinsPro — Rédigez vos appréciations scolaires avec l'IA</title>
-  <meta name="description" content="Réduisez jusqu'à 60% le temps de vos bulletins. Cochez les observations, générez des appréciations personnalisées. RGPD compliant.">
+  <title>BulletinsPro — Vos appréciations scolaires en quelques minutes</title>
+  <meta name="description" content="BulletinsPro génère des appréciations de bulletins scolaires personnalisées grâce à l'IA. Cochez, générez, copiez. Conforme RGPD.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --purple: #6B2FD9; --purple-d: #5a28b8; --purple-l: #f3eeff; --purple-b: #ddd5f5;
-      --ink: #1a1425; --ink2: #2d2a3e; --muted: #6b6880; --bg: #fafaf9;
-      --white: #ffffff; --border: #e8e6f0; --green: #16a34a;
-      --green-l: #f0fdf4; --green-b: #bbf7d0; --cream: #fdf8f0;
+      --purple:#6B2FD9; --purple-d:#5520b0; --purple-l:#f0eaff; --purple-b:#d8ccf5;
+      --ink:#1c1830; --ink2:#3d3858; --muted:#7c7899;
+      --cream:#fdf8f2; --cream2:#f7f1e8; --white:#ffffff;
+      --border:#e8e3f0; --green:#16a34a; --green-l:#f0fdf4; 
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; overflow-x: hidden; }
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(250,250,249,.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 24px; height: 58px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-family: 'Lora', serif; font-size: 1.2rem; font-weight: 700; color: var(--purple); text-decoration: none; }
-    .nav-logo span { color: var(--ink); font-weight: 400; }
-    .nav-links { display: flex; align-items: center; gap: 6px; }
-    .nav-link { font-size: .83rem; color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 6px; }
-    .nav-link:hover { color: var(--purple); background: var(--purple-l); }
-    .nav-cta { background: var(--purple); color: #fff; padding: 8px 16px; border-radius: 8px; font-size: .83rem; font-weight: 600; text-decoration: none; }
-    .nav-cta:hover { background: var(--purple-d); }
-    /* ABOVE FOLD */
-    .above-fold { min-height: 100vh; padding-top: 58px; display: grid; grid-template-columns: 1fr 1fr; }
-    @media(max-width:900px){ .above-fold { grid-template-columns: 1fr; min-height: auto; } }
-    .pitch { padding: 60px 48px 60px 40px; background: linear-gradient(160deg, var(--cream) 0%, var(--bg) 100%); display: flex; flex-direction: column; justify-content: center; border-right: 1px solid var(--border); }
-    @media(max-width:900px){ .pitch { padding: 48px 24px 32px; border-right: none; border-bottom: 1px solid var(--border); } }
-    .pitch-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--purple-l); color: var(--purple); border: 1px solid var(--purple-b); border-radius: 999px; padding: 4px 12px; font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 20px; width: fit-content; animation: fadeUp .5s ease both; }
-    .pitch h1 { font-family: 'Lora', serif; font-size: clamp(1.8rem,3vw,2.8rem); font-weight: 700; line-height: 1.2; color: var(--ink); margin-bottom: 16px; animation: fadeUp .5s .08s ease both; }
-    .pitch h1 em { font-style: italic; color: var(--purple); }
-    .pitch-sub { font-size: .95rem; color: var(--muted); line-height: 1.7; margin-bottom: 28px; max-width: 420px; animation: fadeUp .5s .16s ease both; }
-    .pitch-proof { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; animation: fadeUp .5s .24s ease both; }
-    .proof-item { display: flex; align-items: flex-start; gap: 8px; font-size: .875rem; color: var(--ink2); }
-    .proof-item span:first-child { flex-shrink: 0; }
-    .pitch-actions { display: flex; gap: 10px; flex-wrap: wrap; animation: fadeUp .5s .32s ease both; }
-    .btn-primary { background: var(--purple); color: #fff; padding: 13px 24px; border-radius: 9px; font-size: .9rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 18px rgba(107,47,217,.25); transition: background .15s, transform .1s; }
-    .btn-primary:hover { background: var(--purple-d); transform: translateY(-1px); }
-    .btn-outline { background: var(--white); color: var(--ink); padding: 13px 24px; border-radius: 9px; font-size: .9rem; font-weight: 500; text-decoration: none; border: 1.5px solid var(--border); transition: border-color .15s; }
-    .btn-outline:hover { border-color: var(--purple); }
-    .pitch-note { font-size: .75rem; color: var(--muted); margin-top: 12px; animation: fadeUp .5s .4s ease both; }
-    /* DEMO PANEL */
-    .demo-panel { padding: 32px 32px 32px 28px; background: var(--white); display: flex; flex-direction: column; overflow-y: auto; max-height: calc(100vh - 58px); }
-    @media(max-width:900px){ .demo-panel { padding: 28px 20px; max-height: none; } }
-    .demo-heading { font-family: 'DM Mono', monospace; font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; color: var(--purple); margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
-    .demo-counter-badge { background: var(--purple-l); color: var(--purple); padding: 2px 10px; border-radius: 999px; font-size: .72rem; font-weight: 600; }
-    .demo-student { display: flex; align-items: center; gap: 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; }
-    .demo-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg,#6B2FD9,#a855f7); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: .9rem; flex-shrink: 0; }
-    .demo-student strong { display: block; font-size: .85rem; color: var(--ink); }
-    .demo-student span { font-size: .73rem; color: var(--muted); }
-    .demo-section-lbl { font-family: 'DM Mono', monospace; font-size: .56rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 6px; display: block; }
-    .verdict-row { margin-bottom: 14px; }
-    .verdict-pills { display: flex; flex-wrap: wrap; gap: 5px; }
-    .verdict-pill { padding: 5px 11px; border-radius: 999px; border: 1.5px solid var(--border); font-size: .74rem; cursor: pointer; background: var(--white); color: var(--muted); transition: all .12s; user-select: none; }
-    .verdict-pill.active { background: var(--purple); color: #fff; border-color: var(--purple); font-weight: 600; }
-    .pills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-    @media(max-width:500px){ .pills-grid { grid-template-columns: 1fr; } }
-    .demo-cat { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-    .demo-cat-hd { font-family: 'DM Mono', monospace; font-size: .54rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); padding: 6px 10px; border-bottom: 1px solid var(--border); background: var(--white); }
-    .demo-cat-pills { padding: 8px; display: flex; flex-wrap: wrap; gap: 5px; }
-    .dpill { padding: 4px 9px; border-radius: 999px; border: 1.5px solid; font-size: .72rem; cursor: pointer; transition: all .12s; user-select: none; }
-    .dpill.pos { border-color: #d1fae5; background: #f0fdf4; color: #4b7c5e; }
-    .dpill.pos.sel { background: #dcfce7; border-color: #16a34a; color: #15803d; font-weight: 600; }
-    .dpill.neutral { border-color: #fed7aa; background: #fff8f0; color: #9b7b50; }
-    .dpill.neutral.sel { background: #ffedd5; border-color: #ea580c; color: #c2410c; font-weight: 600; }
-    .dpill.neg { border-color: #fecaca; background: #fff5f5; color: #9b6060; }
-    .dpill.neg.sel { background: #fee2e2; border-color: #dc2626; color: #b91c1c; font-weight: 600; }
-    .demo-disclaimer { font-size: .73rem; color: var(--muted); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 7px 10px; margin-bottom: 12px; line-height: 1.5; }
-    .demo-gen-btn { width: 100%; padding: 12px; background: var(--purple); color: #fff; border: none; border-radius: 9px; font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px; transition: background .15s; margin-bottom: 12px; }
-    .demo-gen-btn:hover:not(:disabled) { background: var(--purple-d); }
-    .demo-gen-btn:disabled { opacity: .6; cursor: not-allowed; }
-    .demo-result { display: none; background: var(--purple-l); border: 1.5px solid var(--purple-b); border-radius: 9px; padding: 14px; }
-    .demo-result.show { display: block; animation: fadeUp .3s ease; }
-    .demo-result-lbl { font-family: 'DM Mono', monospace; font-size: .56rem; text-transform: uppercase; letter-spacing: .07em; color: var(--purple); margin-bottom: 7px; display: block; }
-    .demo-result-text { font-size: .87rem; color: var(--ink2); line-height: 1.65; }
-    .demo-result-actions { display: flex; align-items: center; gap: 7px; margin-top: 10px; flex-wrap: wrap; }
-    .demo-copy-btn { padding: 5px 12px; border-radius: 6px; border: 1px solid var(--purple-b); background: var(--white); color: var(--purple); font-size: .75rem; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all .12s; }
-    .demo-copy-btn:hover { background: var(--purple); color: #fff; }
-    .demo-cta-link { margin-left: auto; font-size: .78rem; font-weight: 600; color: var(--purple); text-decoration: none; }
-    .demo-cta-link:hover { text-decoration: underline; }
-    .demo-limit { display: none; text-align: center; background: var(--purple-l); border: 1px solid var(--purple-b); border-radius: 9px; padding: 16px; margin-top: 8px; }
-    .demo-limit.show { display: block; }
-    .demo-limit p { font-size: .85rem; color: var(--purple); font-weight: 500; margin-bottom: 12px; }
-    /* SECTIONS */
-    .section { padding: 64px 24px; }
-    .section-inner { max-width: 900px; margin: 0 auto; }
-    .section-lbl { font-family: 'DM Mono', monospace; font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--purple); margin-bottom: 10px; display: block; text-align: center; }
-    .section-h2 { font-family: 'Lora', serif; font-size: clamp(1.5rem,2.5vw,2rem); font-weight: 700; color: var(--ink); text-align: center; margin-bottom: 10px; }
-    .section-sub { font-size: .9rem; color: var(--muted); text-align: center; max-width: 480px; margin: 0 auto 40px; }
-    .how-section { background: var(--bg); border-top: 1px solid var(--border); }
-    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-    @media(max-width:700px){ .steps { grid-template-columns: 1fr; } }
-    .step { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
-    .step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--purple-l); color: var(--purple); font-weight: 700; font-size: .85rem; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
-    .step h3 { font-family: 'Lora', serif; font-size: .95rem; font-weight: 600; color: var(--ink); margin-bottom: 7px; }
-    .step p { font-size: .82rem; color: var(--muted); line-height: 1.6; }
-    .features-section { background: var(--white); border-top: 1px solid var(--border); }
-    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-    @media(max-width:700px){ .features-grid { grid-template-columns: 1fr; } }
-    .feature { padding: 20px; border: 1px solid var(--border); border-radius: 12px; transition: border-color .15s; }
-    .feature:hover { border-color: var(--purple-b); }
-    .feature-icon { font-size: 1.4rem; margin-bottom: 10px; display: block; }
-    .feature h3 { font-size: .88rem; font-weight: 600; color: var(--ink); margin-bottom: 5px; }
-    .feature p { font-size: .8rem; color: var(--muted); line-height: 1.6; }
-    /* PRICING */
-    .pricing-section { background: var(--bg); border-top: 1px solid var(--border); }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
-    @media(max-width:700px){ .pricing-grid { grid-template-columns: 1fr; } }
-    .pricing-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 28px 22px; text-align: center; }
-    .pricing-card.featured { border-color: var(--purple); box-shadow: 0 6px 28px rgba(107,47,217,.14); position: relative; }
-    .pricing-badge-top { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--purple); color: #fff; padding: 3px 14px; border-radius: 999px; font-size: .68rem; font-weight: 600; white-space: nowrap; }
-    .pricing-tier { font-size: .72rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
-    .pricing-price { font-family: 'Lora', serif; font-size: 2.4rem; font-weight: 700; color: var(--ink); line-height: 1; }
-    .pricing-price sup { font-size: .95rem; vertical-align: top; margin-top: 7px; }
-    .pricing-monthly { font-size: .75rem; color: var(--muted); margin: 4px 0 12px; }
-    .pricing-annual { background: var(--green-l); border: 1px solid var(--green-b); border-radius: 8px; padding: 8px 12px; margin-bottom: 18px; text-align: left; }
-    .pricing-annual-price { font-weight: 700; color: var(--green); font-size: .9rem; }
-    .pricing-annual-save { font-size: .75rem; color: var(--green); display: block; margin-top: 1px; }
-    .pricing-annual-detail { font-size: .72rem; color: #166534; margin-top: 2px; display: block; }
-    .save-badge { background: #dcfce7; color: #15803d; font-size: .68rem; padding: 1px 7px; border-radius: 999px; font-weight: 700; margin-left: 4px; }
-    .pricing-features { list-style: none; margin-bottom: 20px; text-align: left; }
-    .pricing-features li { font-size: .82rem; color: var(--ink2); padding: 4px 0; display: flex; align-items: flex-start; gap: 7px; }
-    .pricing-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
-    .pricing-features li.muted { color: var(--muted); }
-    .pricing-features li.muted::before { content: '–'; color: var(--border); }
-    .pricing-btn { display: block; width: 100%; padding: 11px; border-radius: 8px; font-size: .86rem; font-weight: 600; text-decoration: none; text-align: center; transition: all .15s; }
-    .pricing-btn.outline { border: 1.5px solid var(--border); color: var(--muted); }
-    .pricing-btn.outline:hover { border-color: var(--purple); color: var(--purple); }
-    .pricing-btn.filled { background: var(--purple); color: #fff; }
-    .pricing-btn.filled:hover { background: var(--purple-d); }
-    /* CTA */
-    .cta-band { padding: 64px 24px; background: linear-gradient(135deg,#1a1425 0%,#2d1a5c 100%); text-align: center; }
-    .cta-band .section-lbl { color: rgba(255,255,255,.45); }
-    .cta-band h2 { font-family: 'Lora', serif; font-style: italic; font-size: clamp(1.3rem,2.5vw,1.8rem); color: #fff; margin-bottom: 8px; }
-    .cta-band p { font-size: .83rem; color: rgba(255,255,255,.5); margin-bottom: 28px; }
-    .cta-band .btn-primary { background: #fff; color: var(--purple); box-shadow: 0 4px 20px rgba(0,0,0,.25); }
-    .cta-band .btn-primary:hover { background: #f0e8ff; }
-    footer { background: var(--white); border-top: 1px solid var(--border); padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    footer .logo { font-family: 'Lora', serif; font-size: 1rem; font-weight: 700; color: var(--purple); text-decoration: none; }
-    footer .logo span { color: var(--ink); font-weight: 400; }
-    .footer-links { display: flex; gap: 18px; }
-    .footer-links a { font-size: .78rem; color: var(--muted); text-decoration: none; }
-    .footer-links a:hover { color: var(--purple); }
-    footer p { font-size: .73rem; color: var(--muted); }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-    .spin { display: inline-block; animation: spin .8s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--ink); overflow-x:hidden; }
+
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      background:rgba(253,248,242,.96); backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border); height:58px;
+      display:flex; align-items:center; padding:0 32px; gap:32px;
+    }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:700; color:var(--purple); text-decoration:none; }
+    .nav-logo span { color:var(--ink); }
+    .nav-links { display:flex; align-items:center; gap:4px; margin-left:auto; }
+    .nav-link { font-size:.85rem; color:var(--muted); text-decoration:none; padding:7px 14px; border-radius:8px; transition:all .15s; }
+    .nav-link:hover { color:var(--purple); background:var(--purple-l); }
+    .nav-cta { background:var(--purple); color:#fff; padding:8px 20px; border-radius:8px; font-size:.85rem; font-weight:600; text-decoration:none; transition:all .15s; box-shadow:0 2px 12px rgba(107,47,217,.3); }
+    .nav-cta:hover { background:var(--purple-d); transform:translateY(-1px); }
+
+    .hero { min-height:100vh; padding:58px 0 0; display:grid; grid-template-columns:1fr 1fr; align-items:stretch; }
+    .hero-left {
+      padding:80px 56px 80px 64px; display:flex; flex-direction:column; justify-content:center;
+      background:var(--cream); position:relative;
+    }
+    .hero-left::after { content:''; position:absolute; top:0; right:0; bottom:0; width:1px; background:var(--border); }
+    .hero-left::before {
+      content:''; position:absolute; top:-80px; left:-80px; width:400px; height:400px;
+      background:radial-gradient(circle, rgba(107,47,217,.06) 0%, transparent 70%); pointer-events:none;
+    }
+    .hero-tag {
+      display:inline-flex; align-items:center; gap:8px;
+      font-family:'DM Mono',monospace; font-size:.68rem; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--purple); margin-bottom:24px;
+    }
+    .hero-tag::before { content:''; width:24px; height:1.5px; background:var(--purple); }
+    .hero h1 {
+      font-family:'Playfair Display',serif; font-size:clamp(2rem,3.5vw,3rem);
+      font-weight:800; line-height:1.1; color:var(--ink); margin-bottom:20px; letter-spacing:-.02em;
+    }
+    .hero h1 em { font-style:italic; color:var(--purple); position:relative; }
+
+    .hero-sub { font-size:.95rem; color:var(--ink2); line-height:1.75; margin-bottom:32px; max-width:420px; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:40px; }
+    .btn-primary {
+      background:var(--purple); color:#fff; padding:13px 26px; border-radius:10px;
+      font-size:.9rem; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+      box-shadow:0 4px 20px rgba(107,47,217,.3); transition:all .15s;
+    }
+    .btn-primary:hover { background:var(--purple-d); transform:translateY(-2px); }
+    .btn-ghost {
+      padding:13px 22px; border-radius:10px; font-size:.9rem; font-weight:500;
+      text-decoration:none; border:1.5px solid var(--border); color:var(--ink2); transition:all .15s;
+    }
+    .btn-ghost:hover { border-color:var(--purple); color:var(--purple); }
+    .hero-proof { display:flex; align-items:center; gap:20px; padding-top:32px; border-top:1px solid var(--border); }
+    .proof-item { text-align:center; }
+    .proof-num { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:700; color:var(--purple); display:block; line-height:1; }
+    .proof-label { font-size:.72rem; color:var(--muted); margin-top:3px; }
+    .proof-sep { width:1px; height:36px; background:var(--border); flex-shrink:0; }
+    .rgpd-badge { display:inline-flex; align-items:center; gap:6px; background:var(--green-l); border:1px solid #bbf7d0; border-radius:6px; padding:5px 10px; font-size:.72rem; color:var(--green); font-weight:600; }
+
+    .hero-right {
+      background:var(--cream2); display:flex; flex-direction:column; justify-content:center;
+      padding:40px; position:relative; overflow:hidden;
+    }
+    .hero-right::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(107,47,217,.06) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .demo-label { font-family:'DM Mono',monospace; font-size:.62rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin-bottom:12px; text-align:center; position:relative; }
+    .demo-card { background:var(--white); border:1px solid var(--border); border-radius:16px; box-shadow:0 8px 40px rgba(28,24,48,.1),0 2px 8px rgba(28,24,48,.05); overflow:hidden; }
+    .demo-titlebar { background:var(--cream2); border-bottom:1px solid var(--border); padding:10px 14px; display:flex; align-items:center; gap:10px; }
+    .dots { display:flex; gap:5px; }
+    .dot { width:10px; height:10px; border-radius:50%; }
+    .dot:nth-child(1){background:#ff5f57;} .dot:nth-child(2){background:#ffbd2e;} .dot:nth-child(3){background:#28ca41;}
+    .titlebar-name { font-family:'DM Mono',monospace; font-size:.65rem; color:var(--muted); flex:1; text-align:center; }
+    .demo-tries { font-size:.7rem; font-weight:600; color:var(--purple); background:var(--purple-l); padding:2px 8px; border-radius:999px; }
+    .demo-inner { padding:16px; }
+    .demo-stu { display:flex; align-items:center; gap:10px; background:var(--cream); border:1px solid var(--border); border-radius:10px; padding:10px 12px; margin-bottom:14px; }
+    .stu-av { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,#6B2FD9,#a855f7); color:#fff; font-weight:700; font-size:.9rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .stu-info strong { font-size:.82rem; color:var(--ink); display:block; }
+    .stu-info span { font-size:.7rem; color:var(--muted); }
+    .verdict-row { margin-bottom:14px; }
+    .cat-label { font-family:'DM Mono',monospace; font-size:.57rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:6px; display:block; }
+    .verdict-options { display:flex; flex-wrap:wrap; gap:5px; }
+    .vopt { padding:4px 10px; border-radius:999px; border:1.5px solid var(--border); font-size:.72rem; cursor:pointer; background:var(--white); color:var(--muted); transition:all .12s; user-select:none; }
+    .vopt.on { background:var(--purple); color:#fff; border-color:var(--purple); font-weight:600; }
+    .pills-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
+    .pcat { background:var(--cream); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+    .pcat-hd { font-family:'DM Mono',monospace; font-size:.55rem; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); padding:6px 10px; border-bottom:1px solid var(--border); background:#f5f3fa; }
+    .pcat-pills { padding:7px 8px; display:flex; flex-wrap:wrap; gap:4px; }
+    .pp { padding:3px 8px; border-radius:999px; border:1.5px solid; font-size:.68rem; cursor:pointer; transition:all .12s; user-select:none; }
+    .pp.pos{border-color:#d1fae5;background:#f0fdf4;color:#4b7c5e;}
+    .pp.pos.on{background:#dcfce7;border-color:#16a34a;color:#15803d;font-weight:600;}
+    .pp.neu{border-color:#fed7aa;background:#fff8f0;color:#9b7b50;}
+    .pp.neu.on{background:#ffedd5;border-color:#ea580c;color:#c2410c;font-weight:600;}
+    .pp.neg{border-color:#fecaca;background:#fff5f5;color:#9b6060;}
+    .pp.neg.on{background:#fee2e2;border-color:#dc2626;color:#b91c1c;font-weight:600;}
+    .gen-btn { width:100%; padding:11px; background:var(--purple); color:#fff; border:none; border-radius:8px; font-family:'DM Sans',sans-serif; font-size:.82rem; font-weight:600; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:7px; transition:all .15s; margin-bottom:10px; }
+    .gen-btn:hover:not(:disabled){background:var(--purple-d);transform:translateY(-1px);}
+    .gen-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+    .demo-result { display:none; background:var(--purple-l); border:1.5px solid var(--purple-b); border-radius:8px; padding:12px; }
+    .demo-result.show{display:block;animation:slideUp .3s ease;}
+    .res-label { font-family:'DM Mono',monospace; font-size:.55rem; text-transform:uppercase; letter-spacing:.08em; color:var(--purple); margin-bottom:6px; display:block; }
+    .res-text { font-size:.8rem; color:var(--ink2); line-height:1.65; }
+    .res-actions { display:flex; align-items:center; gap:8px; margin-top:10px; }
+    .copy-btn { font-size:.72rem; padding:4px 12px; border-radius:6px; border:1px solid var(--purple-b); background:var(--white); color:var(--purple); cursor:pointer; font-family:'DM Sans',sans-serif; transition:all .12s; }
+    .copy-btn:hover{background:var(--purple);color:#fff;}
+    .try-app-link { margin-left:auto; font-size:.72rem; font-weight:600; color:var(--purple); text-decoration:none; }
+    .try-app-link:hover{text-decoration:underline;}
+    .limit-msg { display:none; text-align:center; padding:16px 12px; background:var(--purple-l); border-radius:8px; }
+    .limit-msg.show{display:block;}
+    .limit-msg p { font-size:.82rem; color:var(--purple); font-weight:500; margin-bottom:12px; }
+
+    .section { padding:96px 32px; }
+    .section-inner { max-width:1000px; margin:0 auto; }
+    .section-eyebrow { font-family:'DM Mono',monospace; font-size:.68rem; text-transform:uppercase; letter-spacing:.12em; color:var(--purple); display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+    .section-eyebrow::after { content:''; flex:1; max-width:40px; height:1.5px; background:var(--purple-b); }
+    .section h2 { font-family:'Playfair Display',serif; font-size:clamp(1.7rem,3vw,2.4rem); font-weight:700; color:var(--ink); margin-bottom:12px; letter-spacing:-.02em; }
+    .section-sub { font-size:.95rem; color:var(--muted); margin-bottom:48px; max-width:520px; line-height:1.7; }
+
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .step { padding:32px 28px; border-right:1px solid var(--border); background:var(--white); }
+    .step:last-child{border-right:none;}
+    .step-num { font-family:'Playfair Display',serif; font-size:3rem; font-weight:700; color:var(--purple-b); line-height:1; margin-bottom:16px; display:block; }
+    .step h3 { font-size:1rem; font-weight:600; color:var(--ink); margin-bottom:8px; }
+    .step p { font-size:.85rem; color:var(--muted); line-height:1.65; }
+
+    .features-bg { background:var(--cream2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .feat { background:var(--white); padding:28px 24px; transition:background .15s; }
+    .feat:hover{background:var(--purple-l);}
+    .feat-icon{font-size:1.8rem;margin-bottom:14px;display:block;}
+    .feat h3{font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:6px;}
+    .feat p{font-size:.82rem;color:var(--muted);line-height:1.65;}
+
+    .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .price-card { background:var(--white); border:1.5px solid var(--border); border-radius:16px; padding:32px 26px; position:relative; }
+    .price-card.star{border-color:var(--purple);box-shadow:0 8px 40px rgba(107,47,217,.15);}
+    .star-badge { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--purple); color:#fff; font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:4px 14px; border-radius:999px; white-space:nowrap; }
+    .price-name { font-family:'DM Mono',monospace; font-size:.68rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); margin-bottom:16px; display:block; }
+    .price-amount { font-family:'Playfair Display',serif; font-size:2.6rem; font-weight:700; color:var(--ink); line-height:1; margin-bottom:4px; }
+    .price-amount sup{font-size:1.1rem;vertical-align:top;margin-top:8px;}
+    .price-period{font-size:.78rem;color:var(--muted);margin-bottom:24px;}
+    .price-feats{list-style:none;margin-bottom:28px;}
+    .price-feats li{font-size:.83rem;color:var(--ink2);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:8px;}
+    .price-feats li:last-child{border-bottom:none;}
+    .price-feats li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+    .price-btn{display:block;width:100%;padding:12px;border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;text-align:center;transition:all .15s;}
+    .price-btn.ghost{border:1.5px solid var(--border);color:var(--muted);}
+    .price-btn.ghost:hover{border-color:var(--purple);color:var(--purple);}
+    .price-btn.solid{background:var(--purple);color:#fff;box-shadow:0 4px 14px rgba(107,47,217,.25);}
+    .price-btn.solid:hover{background:var(--purple-d);transform:translateY(-1px);}
+
+    .banner{background:var(--ink);padding:80px 32px;text-align:center;position:relative;overflow:hidden;}
+    .banner::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(107,47,217,.3) 0%,transparent 60%);pointer-events:none;}
+    .banner-quote{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,1.9rem);font-weight:700;font-style:italic;color:#fff;margin-bottom:12px;line-height:1.4;position:relative;}
+    .banner-attr{font-size:.83rem;color:rgba(255,255,255,.5);margin-bottom:36px;}
+    .banner .btn-primary{background:#fff;color:var(--purple);box-shadow:0 4px 24px rgba(0,0,0,.3);}
+    .banner .btn-primary:hover{background:var(--purple-l);}
+
+    footer{background:var(--cream2);border-top:1px solid var(--border);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--purple);text-decoration:none;}
+    .footer-logo span{color:var(--ink);}
+    .footer-links{display:flex;gap:20px;}
+    .footer-links a{font-size:.8rem;color:var(--muted);text-decoration:none;}
+    .footer-links a:hover{color:var(--purple);}
+    footer p{font-size:.75rem;color:var(--muted);}
+
+    @keyframes slideUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    .spin{display:inline-block;animation:spin .7s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .hero-left{padding:60px 32px 48px;}
+      .hero-left::after{display:none;}
+      .hero-right{padding:40px 32px;}
+      .steps{grid-template-columns:1fr;}
+      .step{border-right:none;border-bottom:1px solid var(--border);}
+      .step:last-child{border-bottom:none;}
+      .features-grid{grid-template-columns:1fr 1fr;}
+      .pricing-grid{grid-template-columns:1fr;}
+      .pills-grid{grid-template-columns:1fr;}
+    }
+    @media(max-width:600px){
+      nav{padding:0 16px;gap:16px;}
+      .nav-link{display:none;}
+      .hero-left{padding:48px 20px 40px;}
+      .hero-right{padding:32px 20px;}
+      .section{padding:64px 20px;}
+      .features-grid{grid-template-columns:1fr;}
+      footer{flex-direction:column;align-items:flex-start;}
+    }
   </style>
 </head>
 <body>
@@ -162,262 +221,308 @@
   </div>
 </nav>
 
-<div class="above-fold">
-  <div class="pitch">
-    <div class="pitch-badge">✨ Conçu par une enseignante, pour les enseignants</div>
-    <h1>Vos bulletins rédigés <em>jusqu'à 60%</em> plus vite</h1>
-    <p class="pitch-sub">Cochez les observations, cliquez sur générer. BulletinsPro rédige des appréciations personnalisées et professionnelles — conformes RGPD.</p>
-    <div class="pitch-proof">
-      <div class="proof-item"><span>🔒</span><span>Aucun prénom d'élève transmis à l'IA — RGPD garanti</span></div>
-      <div class="proof-item"><span>📚</span><span>15+ matières avec des observations adaptées à chaque discipline</span></div>
-      <div class="proof-item"><span>⚡</span><span>Génération en masse : toute une classe en un seul clic</span></div>
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Conçu par un enseignant</div>
+    <h1>Vos bulletins rédigés en <em>quelques minutes</em></h1>
+    <p class="hero-sub">Cochez les observations sur chaque élève, cliquez sur générer. BulletinsPro rédige des appréciations personnalisées et professionnelles grâce à l'IA.</p>
+    <div class="hero-actions">
+      <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary">Commencer — c'est gratuit →</a>
+      <a href="#comment" class="btn-ghost">Comment ça marche</a>
     </div>
-    <div class="pitch-actions">
-      <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary">Commencer gratuitement →</a>
-      <a href="#comment" class="btn-outline">Comment ça marche</a>
+    <div class="hero-proof">
+      <div class="proof-item">
+        <span class="proof-num">25</span>
+        <div class="proof-label">appréciations offertes</div>
+      </div>
+      <div class="proof-sep"></div>
+      <div class="proof-item">
+        <span class="proof-num">−60%</span>
+        <div class="proof-label">jusqu'à 60% de temps gagné</div>
+      </div>
+      <div class="proof-sep"></div>
+      <div class="proof-item">
+        <div class="rgpd-badge">🔒 RGPD</div>
+        <div class="proof-label" style="margin-top:6px">aucun prénom transmis</div>
+      </div>
     </div>
-    <p class="pitch-note">25 appréciations offertes · Sans inscription · Sans carte bancaire</p>
   </div>
 
-  <div class="demo-panel">
-    <div class="demo-heading">
-      <span>🎯 Démo interactive — essayez maintenant</span>
-      <span class="demo-counter-badge" id="demo-counter">3 essais</span>
-    </div>
-    <div class="demo-student">
-      <div class="demo-avatar">A</div>
-      <div><strong>Alex Martin</strong><span>2nde · Français · T2</span></div>
-    </div>
-    <div class="verdict-row">
-      <span class="demo-section-lbl">Bilan global</span>
-      <div class="verdict-pills" id="verdict-pills">
-        <div class="verdict-pill" data-v="Excellent trimestre" onclick="selectVerdict(this)">🌟 Excellent</div>
-        <div class="verdict-pill active" data-v="Bon trimestre" onclick="selectVerdict(this)">✅ Bon</div>
-        <div class="verdict-pill" data-v="Trimestre satisfaisant" onclick="selectVerdict(this)">🟡 Satisfaisant</div>
-        <div class="verdict-pill" data-v="Trimestre fragile" onclick="selectVerdict(this)">🟠 Fragile</div>
-        <div class="verdict-pill" data-v="Trimestre insuffisant" onclick="selectVerdict(this)">❌ Insuffisant</div>
+  <div class="hero-right">
+    <div class="demo-label">✦ Démo interactive — essayez maintenant</div>
+    <div class="demo-card">
+      <div class="demo-titlebar">
+        <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="titlebar-name">BulletinsPro</div>
+        <div class="demo-tries" id="demo-counter">3 essais</div>
       </div>
-    </div>
-    <span class="demo-section-lbl">Observations (cochez ce qui correspond)</span>
-    <div class="pills-grid">
-      <div class="demo-cat">
-        <div class="demo-cat-hd">Résultats</div>
-        <div class="demo-cat-pills">
-          <span class="dpill pos sel" onclick="togglePill(this)">Bons résultats</span>
-          <span class="dpill pos" onclick="togglePill(this)">Progression régulière</span>
-          <span class="dpill neutral" onclick="togglePill(this)">Résultats fragiles</span>
-          <span class="dpill neg" onclick="togglePill(this)">Résultats insuffisants</span>
+      <div class="demo-inner">
+        <div class="demo-stu">
+          <div class="stu-av">A</div>
+          <div class="stu-info">
+            <strong>Alex Martin</strong>
+            <span>2nde · Français · Trimestre 2</span>
+          </div>
+        </div>
+        <div class="verdict-row">
+          <span class="cat-label">Bilan global</span>
+          <div class="verdict-options">
+            <div class="vopt" data-v="Excellent trimestre" onclick="selV(this)">🌟 Excellent</div>
+            <div class="vopt on" data-v="Bon trimestre" onclick="selV(this)">✅ Bon</div>
+            <div class="vopt" data-v="Trimestre satisfaisant" onclick="selV(this)">🟡 Satisfaisant</div>
+            <div class="vopt" data-v="Trimestre fragile" onclick="selV(this)">🟠 Fragile</div>
+            <div class="vopt" data-v="Trimestre insuffisant" onclick="selV(this)">❌ Insuffisant</div>
+          </div>
+        </div>
+        <div class="pills-grid">
+          <div class="pcat">
+            <div class="pcat-hd">Résultats</div>
+            <div class="pcat-pills">
+              <span class="pp pos on" onclick="togP(this)">Bons résultats</span>
+              <span class="pp pos" onclick="togP(this)">Progression</span>
+              <span class="pp neu" onclick="togP(this)">Fragiles</span>
+              <span class="pp neg" onclick="togP(this)">Insuffisant</span>
+            </div>
+          </div>
+          <div class="pcat">
+            <div class="pcat-hd">Travail</div>
+            <div class="pcat-pills">
+              <span class="pp pos on" onclick="togP(this)">Travail sérieux</span>
+              <span class="pp pos" onclick="togP(this)">Régulier</span>
+              <span class="pp neu" onclick="togP(this)">Irrégulier</span>
+              <span class="pp neg" onclick="togP(this)">Insuffisant</span>
+            </div>
+          </div>
+          <div class="pcat">
+            <div class="pcat-hd">Comportement</div>
+            <div class="pcat-pills">
+              <span class="pp pos" onclick="togP(this)">Exemplaire</span>
+              <span class="pp neu on" onclick="togP(this)">Bavarde parfois</span>
+              <span class="pp neu" onclick="togP(this)">Concentration</span>
+              <span class="pp neg" onclick="togP(this)">Perturbateur</span>
+            </div>
+          </div>
+          <div class="pcat">
+            <div class="pcat-hd">Conseils</div>
+            <div class="pcat-pills">
+              <span class="pp pos" onclick="togP(this)">Félicitations</span>
+              <span class="pp pos" onclick="togP(this)">Encouragements</span>
+              <span class="pp neu on" onclick="togP(this)">Concentration</span>
+              <span class="pp neg" onclick="togP(this)">S'investir</span>
+            </div>
+          </div>
+        </div>
+        <button class="gen-btn" id="gen-btn" onclick="doGen()">✨ Générer l'appréciation</button>
+        <div class="demo-result" id="demo-res">
+          <span class="res-label">Appréciation générée</span>
+          <div class="res-text" id="res-text"></div>
+          <div class="res-actions">
+            <button class="copy-btn" onclick="doCopy()">📋 Copier</button>
+            <a href="https://bulletinspro.github.io/bulletinspro" class="try-app-link">Utiliser pour ma classe →</a>
+          </div>
+        </div>
+        <div class="limit-msg" id="limit-msg">
+          <p>🎉 Vous avez utilisé les 3 essais de démo !</p>
+          <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary" style="display:inline-flex;font-size:.85rem">Commencer gratuitement — 25 appréciations →</a>
         </div>
       </div>
-      <div class="demo-cat">
-        <div class="demo-cat-hd">Travail</div>
-        <div class="demo-cat-pills">
-          <span class="dpill pos sel" onclick="togglePill(this)">Travail sérieux</span>
-          <span class="dpill pos" onclick="togglePill(this)">Travail régulier</span>
-          <span class="dpill neutral" onclick="togglePill(this)">Travail irrégulier</span>
-          <span class="dpill neg" onclick="togglePill(this)">Travail insuffisant</span>
-        </div>
-      </div>
-      <div class="demo-cat">
-        <div class="demo-cat-hd">Comportement</div>
-        <div class="demo-cat-pills">
-          <span class="dpill pos" onclick="togglePill(this)">Comportement exemplaire</span>
-          <span class="dpill neutral sel" onclick="togglePill(this)">Bavarde parfois</span>
-          <span class="dpill neutral" onclick="togglePill(this)">Manque de concentration</span>
-          <span class="dpill neg" onclick="togglePill(this)">Perturbateur/trice</span>
-        </div>
-      </div>
-      <div class="demo-cat">
-        <div class="demo-cat-hd">Conseils</div>
-        <div class="demo-cat-pills">
-          <span class="dpill pos" onclick="togglePill(this)">Félicitations</span>
-          <span class="dpill pos" onclick="togglePill(this)">Encouragements</span>
-          <span class="dpill neutral sel" onclick="togglePill(this)">Gagner en concentration</span>
-          <span class="dpill neg" onclick="togglePill(this)">S'investir davantage</span>
-        </div>
-      </div>
-    </div>
-    <div class="demo-disclaimer">💡 <strong>Démo simplifiée</strong> — l'application complète propose bien plus de catégories, de nuances et de disciplines. Ceci est un simple aperçu.</div>
-    <button class="demo-gen-btn" id="demo-gen-btn" onclick="generateDemo()">✨ Générer l'appréciation</button>
-    <div class="demo-result" id="demo-result">
-      <span class="demo-result-lbl">Appréciation générée</span>
-      <div class="demo-result-text" id="demo-result-text"></div>
-      <div class="demo-result-actions">
-        <button class="demo-copy-btn" onclick="copyDemo()">📋 Copier</button>
-        <a href="https://bulletinspro.github.io/bulletinspro" class="demo-cta-link">Utiliser pour ma vraie classe →</a>
-      </div>
-    </div>
-    <div class="demo-limit" id="demo-limit">
-      <p>🎉 Vous avez utilisé les 3 essais de démo !</p>
-      <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary" style="display:inline-flex">Commencer gratuitement — 25 appréciations offertes →</a>
     </div>
   </div>
-</div>
+</section>
 
-<section class="section how-section" id="comment">
+<section class="section" id="comment" style="background:var(--white);border-top:1px solid var(--border)">
   <div class="section-inner">
-    <span class="section-lbl">⚡ Simple comme bonjour</span>
-    <h2 class="section-h2">3 étapes, une classe complète</h2>
-    <p class="section-sub">Pas de formation nécessaire. Première utilisation comprise.</p>
+    <div class="section-eyebrow">Comment ça marche</div>
+    <h2>Trois étapes, une classe entière</h2>
+    <p class="section-sub">Pas de formation requise. Si vous savez cocher des cases, vous savez utiliser BulletinsPro.</p>
     <div class="steps">
-      <div class="step"><div class="step-num">1</div><h3>Créez votre classe</h3><p>Ajoutez vos élèves, choisissez la matière et la période. En quelques minutes, votre classe est prête.</p></div>
-      <div class="step"><div class="step-num">2</div><h3>Cochez les observations</h3><p>Pour chaque élève, cochez les observations correspondantes : résultats, travail, comportement, conseils. 1 à 2 minutes par élève.</p></div>
-      <div class="step"><div class="step-num">3</div><h3>Générez en un clic</h3><p>Lancez la génération pour toute la classe d'un coup. Relisez, ajustez si besoin, copiez dans votre logiciel de notes.</p></div>
+      <div class="step"><span class="step-num">01</span><h3>Créez votre classe</h3><p>Ajoutez vos élèves, choisissez la matière, l'année et la période. Prêt en 2 minutes.</p></div>
+      <div class="step"><span class="step-num">02</span><h3>Cochez les observations</h3><p>Pour chaque élève, cochez les points correspondants : résultats, travail, comportement, conseils. 1 à 2 minutes par élève.</p></div>
+      <div class="step"><span class="step-num">03</span><h3>Générez en un clic</h3><p>Lancez la génération pour toute la classe. Relisez, ajustez si besoin, copiez dans PRONOTE.</p></div>
     </div>
   </div>
 </section>
 
-<section class="section features-section">
+<section class="section features-bg">
   <div class="section-inner">
-    <span class="section-lbl">🎓 Conçu pour les profs</span>
-    <h2 class="section-h2">Tout ce dont vous avez besoin</h2>
-    <p class="section-sub">Rien de superflu, tout l'essentiel.</p>
+    <div class="section-eyebrow">Fonctionnalités</div>
+    <h2>Tout ce dont vous avez besoin</h2>
+    <p class="section-sub">Conçu en détail par et pour les enseignants du secondaire.</p>
     <div class="features-grid">
-      <div class="feature"><span class="feature-icon">🔒</span><h3>100% RGPD</h3><p>Les prénoms des élèves sont remplacés automatiquement avant envoi à l'IA. Aucune donnée nominative ne quitte votre appareil.</p></div>
-      <div class="feature"><span class="feature-icon">📚</span><h3>15+ matières adaptées</h3><p>Français, Maths, Anglais, Histoire-Géo, Philosophie, SVT, Physique, NSI, SES, EPS et plus — avec des observations spécifiques à chaque discipline.</p></div>
-      <div class="feature"><span class="feature-icon">⚡</span><h3>Génération en masse</h3><p>Générez les appréciations de toute une classe d'un seul clic. Plus besoin de chercher la formulation pour chaque élève.</p></div>
-      <div class="feature"><span class="feature-icon">💾</span><h3>Sauvegarde Google Drive</h3><p>Vos données sauvegardées automatiquement sur votre propre Drive. Accessible depuis n'importe quel appareil.</p></div>
-      <div class="feature"><span class="feature-icon">🎨</span><h3>Personnalisable</h3><p>Ajoutez vos propres observations, ajustez le ton (bienveillant, ferme, encourageant), gérez plusieurs classes et trimestres.</p></div>
-      <div class="feature"><span class="feature-icon">🤖</span><h3>IA de qualité professionnelle</h3><p>Propulsé par Claude Sonnet d'Anthropic. Pas de clichés, pas de répétitions — des appréciations qui sonnent comme vous les auriez écrites.</p></div>
+      <div class="feat"><span class="feat-icon">🔒</span><h3>100% RGPD</h3><p>Les prénoms des élèves sont automatiquement remplacés avant envoi à l'IA. Aucune donnée nominative ne quitte votre appareil.</p></div>
+      <div class="feat"><span class="feat-icon">📚</span><h3>15+ matières adaptées</h3><p>Français, Maths, Langues, Histoire-Géo, Philo, SVT, Physique, NSI, SES, EPS… avec des observations propres à chaque discipline.</p></div>
+      <div class="feat"><span class="feat-icon">⚡</span><h3>Génération en masse</h3><p>Générez toute une classe d'un seul clic. 25 élèves en moins de 3 minutes.</p></div>
+      <div class="feat"><span class="feat-icon">💾</span><h3>Google Drive</h3><p>Sauvegarde automatique sur votre Drive personnel. Accessible depuis n'importe quel appareil.</p></div>
+      <div class="feat"><span class="feat-icon">📋</span><h3>Export PRONOTE</h3><p>Téléchargez un fichier prêt pour l'import PRONOTE client, ou copiez depuis la vue complète.</p></div>
+      <div class="feat"><span class="feat-icon">🎯</span><h3>Claude Sonnet</h3><p>L'un des meilleurs modèles d'IA au monde — appréciations fluides, naturelles, jamais génériques.</p></div>
     </div>
   </div>
 </section>
 
-<section class="section pricing-section" id="tarifs">
+<section class="section" id="tarifs" style="background:var(--white);border-top:1px solid var(--border)">
   <div class="section-inner">
-    <span class="section-lbl">💳 Tarifs</span>
-    <h2 class="section-h2">Simple et transparent</h2>
-    <p class="section-sub">Commencez gratuitement. Abonnez-vous si ça vous convient.</p>
+    <div class="section-eyebrow">Tarifs</div>
+    <h2>Simple et transparent</h2>
+    <p class="section-sub">Commencez gratuitement. Abonnez-vous quand vous êtes convaincu.</p>
+
+    <!-- Billing toggle -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:40px">
+      <span id="lbl-monthly" style="font-size:.88rem;color:var(--muted);transition:color .2s">Mensuel</span>
+      <div onclick="toggleBilling()" style="width:52px;height:28px;background:var(--purple);border-radius:999px;cursor:pointer;position:relative;transition:background .2s" id="billing-toggle">
+        <div id="billing-knob" style="position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:transform .2s;transform:translateX(24px)"></div>
+      </div>
+      <span id="lbl-annual" style="font-size:.88rem;color:var(--purple);font-weight:600;transition:color .2s">
+        Annuel
+        <span style="background:var(--accent);color:#fff;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:6px">−2 mois offerts</span>
+      </span>
+    </div>
+
     <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-tier">Découverte</div>
-        <div class="pricing-price"><sup>€</sup>0</div>
-        <div class="pricing-monthly">pour toujours</div>
-        <ul class="pricing-features">
+      <div class="price-card">
+        <span class="price-name">Découverte</span>
+        <div class="price-amount"><sup>€</sup>0</div>
+        <div class="price-period">pour toujours</div>
+        <ul class="price-feats">
           <li>25 appréciations offertes</li>
           <li>Toutes les matières</li>
           <li>Sans inscription</li>
-          <li class="muted">Sauvegarde Drive</li>
-          <li class="muted">Génération en masse</li>
+          <li>Conforme RGPD</li>
         </ul>
-        <a href="https://bulletinspro.github.io/bulletinspro" class="pricing-btn outline">Commencer →</a>
+        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn ghost">Commencer →</a>
       </div>
-      <div class="pricing-card featured">
-        <div class="pricing-badge-top">⭐ Le plus populaire</div>
-        <div class="pricing-tier">Standard</div>
-        <div class="pricing-price"><sup>€</sup>4<span style="font-size:1.3rem">.99</span></div>
-        <div class="pricing-monthly">/ mois · 200 appréciations</div>
-        <div class="pricing-annual">
-          <div class="pricing-annual-price">24,99€ / an <span class="save-badge">−58%</span></div>
-          <span class="pricing-annual-save">800 appréciations incluses</span>
-          <span class="pricing-annual-detail">Soit 2,08€/mois — économisez 34,89€/an</span>
-        </div>
-        <ul class="pricing-features">
-          <li>200 appréciations/mois</li>
-          <li>Sauvegarde Google Drive</li>
+
+      <div class="price-card star">
+        <div class="star-badge">⭐ Le plus populaire</div>
+        <span class="price-name">Standard</span>
+        <div class="price-amount" id="std-price"><sup>€</sup>24<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:400">/an</span></div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:2px;margin-bottom:4px" id="std-equiv">soit 2€/mois — moins qu'un café ☕</div>
+        <div class="price-period" id="std-period"><strong style="color:var(--green)">800 générations</strong> par an</div>
+        <ul class="price-feats">
+          <li id="std-gen">800 générations / an</li>
+          <li>Synchronisation Drive</li>
           <li>Toutes les matières</li>
+          <li>Export PRONOTE</li>
           <li>Génération en masse</li>
-          <li>Historique trimestres</li>
         </ul>
-        <a href="https://bulletinspro.github.io/bulletinspro" class="pricing-btn filled">Choisir Standard →</a>
+        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn solid" id="std-btn">Choisir Standard annuel →</a>
       </div>
-      <div class="pricing-card">
-        <div class="pricing-tier">Pro</div>
-        <div class="pricing-price"><sup>€</sup>7<span style="font-size:1.3rem">.99</span></div>
-        <div class="pricing-monthly">/ mois · 400 appréciations</div>
-        <div class="pricing-annual">
-          <div class="pricing-annual-price">39,99€ / an <span class="save-badge">−58%</span></div>
-          <span class="pricing-annual-save">1 500 appréciations incluses</span>
-          <span class="pricing-annual-detail">Soit 3,33€/mois — économisez 55,89€/an</span>
-        </div>
-        <ul class="pricing-features">
-          <li>400 appréciations/mois</li>
+
+      <div class="price-card">
+        <span class="price-name">Pro</span>
+        <div class="price-amount" id="pro-price"><sup>€</sup>39<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:400">/an</span></div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:2px;margin-bottom:4px" id="pro-equiv">soit 3,33€/mois — moins qu'un verre en terrasse 🥂</div>
+        <div class="price-period" id="pro-period"><strong style="color:var(--green)">1500 générations</strong> par an</div>
+        <ul class="price-feats">
+          <li id="pro-gen">1500 générations / an</li>
           <li>Tout Standard inclus</li>
           <li>Idéal 10+ classes</li>
-          <li>Priorité nouvelles fonctions</li>
+          <li>Accès prioritaire aux nouveautés</li>
         </ul>
-        <a href="https://bulletinspro.github.io/bulletinspro" class="pricing-btn outline">Choisir Pro →</a>
+        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn ghost" id="pro-btn">Choisir Pro annuel →</a>
       </div>
     </div>
+
+    <p style="text-align:center;margin-top:24px;font-size:1.05rem;color:var(--ink2);font-family:'Playfair Display',serif;font-style:italic;font-weight:700">Moins de temps sur les bulletins, plus de temps pour vous.</p>
   </div>
 </section>
 
-<section class="cta-band">
-  <span class="section-lbl">🚀 Prêt à gagner du temps ?</span>
-  <h2>"J'ai réduit mes bulletins de plus de moitié — sans perdre en qualité."</h2>
-  <p>— Alex, professeure d'anglais en lycée</p>
+<section class="banner">
+  <p class="banner-quote">"Ma classe de 22 élèves en 45 minutes au lieu d'une heure trente."</p>
+  <p class="banner-attr">— Alex, professeure d'anglais, utilisatrice BulletinsPro</p>
   <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary">Commencer gratuitement — 25 appréciations offertes →</a>
 </section>
 
 <footer>
-  <a href="#" class="logo">Bulletins<span>Pro</span></a>
+  <a href="#" class="footer-logo">Bulletins<span>Pro</span></a>
   <div class="footer-links">
-    <a href="https://bulletinspro.github.io/bulletinspro/privacy.html">Politique de confidentialité</a>
+    <a href="privacy.html">Politique de confidentialité</a>
     <a href="mailto:contact@bulletinspro.fr">Contact</a>
   </div>
   <p>© 2025 BulletinsPro</p>
 </footer>
 
 <script>
-const DEMO_LIMIT = 3;
-const _dk = 'c2stb3ItdjEtMjVkZjQ3MDdjN2RmMmFlOTcwMGNjOTFlZjY0NGI5MjM3YzkyMzdkYzZmNjg0NTA1MjI5MDRlM2UxNDdiOGQ2OQ==';
-let demoCount = parseInt(localStorage.getItem('bp_demo') || '0');
-let selectedVerdict = 'Bon trimestre';
+  const LIMIT=3;
+  const _dk='c2stb3ItdjEtMjVkZjQ3MDdjN2RmMmFlOTcwMGNjOTFlZjY0NGI5MjM3YzkyMzdkYzZmNjg0NTA1MjI5MDRlM2UxNDdiOGQ2OQ==';
+  let count=parseInt(localStorage.getItem('bp_demo')||'0');
+  let verdict='Bon trimestre';
 
-function updateCounter() {
-  const rem = DEMO_LIMIT - demoCount;
-  const el = document.getElementById('demo-counter');
-  if (rem <= 0) { el.textContent = 'Limite atteinte'; el.style.background = '#fee2e2'; el.style.color = '#b91c1c'; }
-  else { el.textContent = rem + ' essai' + (rem > 1 ? 's' : ''); }
-}
-function selectVerdict(el) {
-  document.querySelectorAll('.verdict-pill').forEach(p => p.classList.remove('active'));
-  el.classList.add('active'); selectedVerdict = el.dataset.v;
-}
-function togglePill(el) { el.classList.toggle('sel'); }
-function getSelectedPills() { return [...document.querySelectorAll('.dpill.sel')].map(p => p.textContent.trim()); }
+  function updCounter(){
+    const rem=LIMIT-count;
+    const el=document.getElementById('demo-counter');
+    if(rem<=0){el.textContent='Limite atteinte';el.style.background='#fee2e2';el.style.color='#b91c1c';}
+    else el.textContent=rem+' essai'+(rem>1?'s':'');
+  }
+  function selV(el){document.querySelectorAll('.vopt').forEach(v=>v.classList.remove('on'));el.classList.add('on');verdict=el.dataset.v;}
+  function togP(el){el.classList.toggle('on');}
+  function getPills(){return[...document.querySelectorAll('.pp.on')].map(p=>p.textContent.trim());}
 
-async function generateDemo() {
-  if (demoCount >= DEMO_LIMIT) { document.getElementById('demo-limit').classList.add('show'); return; }
-  const pills = getSelectedPills();
-  if (!pills.length) { alert('Cochez au moins une observation.'); return; }
-  const btn = document.getElementById('demo-gen-btn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spin">⟳</span> Génération en cours…';
-  document.getElementById('demo-result').classList.remove('show');
-  const prompt = `Tu rédiges des appréciations de bulletin scolaire en français.
-BILAN GLOBAL : "${selectedVerdict}." — Ouvre avec cette phrase exacte.
-PROFIL (prénom fictif : Alex) :
-${pills.map(p => '• ' + p).join('\n')}
-RÈGLES : 3-4 phrases max, 450-550 caractères, ton professionnel, pas de "je/nous", pas de brevet/bac sauf si mentionné, pas de clichés ("il est essentiel"). Termine par un conseil concret. Génère uniquement l'appréciation.`;
-  try {
-    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + atob(_dk), 'HTTP-Referer': 'https://bulletinspro.github.io', 'X-Title': 'BulletinsPro Demo' },
-      body: JSON.stringify({ model: 'anthropic/claude-sonnet-4-5', max_tokens: 250, messages: [{ role: 'user', content: prompt }] })
+  async function doGen(){
+    if(count>=LIMIT){document.getElementById('limit-msg').classList.add('show');return;}
+    const pills=getPills();
+    if(!pills.length){alert('Cochez au moins une observation.');return;}
+    const btn=document.getElementById('gen-btn');
+    btn.disabled=true;
+    btn.innerHTML='<span class="spin">⟳</span> Génération en cours…';
+    document.getElementById('demo-res').classList.remove('show');
+    const prompt=`Tu es un professeur rédigeant une appréciation de bulletin scolaire en français.\n\nBILAN : "${verdict}." — Ouvre OBLIGATOIREMENT par cette phrase.\nÉLÈVE FICTIF : Alex\nOBSERVATIONS :\n${pills.map(p=>'• '+p).join('\n')}\n\nRÈGLES :\n- Commence par "${verdict}." puis 2-3 phrases.\n- Utilise "Alex" naturellement.\n- 350-500 caractères maximum.\n- Ton professionnel et bienveillant.\n- INTERDIT : "il est essentiel", "il est nécessaire", "ambiance de classe".\n- 3e personne uniquement — pas de "je" ni "nous".\n- Termine par un conseil concret.\n\nGénère uniquement l'appréciation, sans guillemets.`;
+    try{
+      const r=await fetch('https://openrouter.ai/api/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+atob(_dk),'HTTP-Referer':'https://bulletinspro.github.io','X-Title':'BulletinsPro Demo'},body:JSON.stringify({model:'anthropic/claude-sonnet-4-5',max_tokens:250,messages:[{role:'user',content:prompt}]})});
+      const d=await r.json();
+      const txt=d.choices?.[0]?.message?.content?.trim();
+      if(!txt)throw new Error();
+      count++;localStorage.setItem('bp_demo',count);updCounter();
+      document.getElementById('res-text').textContent=txt;
+      document.getElementById('demo-res').classList.add('show');
+      if(count>=LIMIT){btn.disabled=true;btn.textContent='✅ Essayez l\'app gratuitement !';document.getElementById('limit-msg').classList.add('show');}
+      else{btn.disabled=false;btn.innerHTML='✨ Générer à nouveau';}
+    }catch{btn.disabled=false;btn.innerHTML='✨ Générer l\'appréciation';alert('Erreur — veuillez réessayer.');}
+  }
+
+  function doCopy(){
+    navigator.clipboard.writeText(document.getElementById('res-text').textContent).then(()=>{
+      const b=document.querySelector('.copy-btn');b.textContent='✅ Copié !';setTimeout(()=>b.textContent='📋 Copier',2000);
     });
-    const data = await res.json();
-    const text = data.choices?.[0]?.message?.content?.trim();
-    if (!text) throw new Error();
-    demoCount++; localStorage.setItem('bp_demo', demoCount); updateCounter();
-    document.getElementById('demo-result-text').textContent = text;
-    document.getElementById('demo-result').classList.add('show');
-    if (demoCount >= DEMO_LIMIT) { btn.disabled = true; btn.innerHTML = '✅ 3 essais utilisés — essayez l\'app !'; document.getElementById('demo-limit').classList.add('show'); }
-    else { btn.disabled = false; btn.innerHTML = '✨ Générer à nouveau'; }
-  } catch { btn.disabled = false; btn.innerHTML = '✨ Générer l\'appréciation'; alert('Une erreur est survenue. Veuillez réessayer.'); }
-}
-function copyDemo() {
-  navigator.clipboard.writeText(document.getElementById('demo-result-text').textContent).then(() => {
-    const btn = document.querySelector('.demo-copy-btn'); btn.textContent = '✅ Copié !';
-    setTimeout(() => { btn.textContent = '📋 Copier'; }, 2000);
-  });
-}
-updateCounter();
-if (demoCount >= DEMO_LIMIT) {
-  document.getElementById('demo-gen-btn').disabled = true;
-  document.getElementById('demo-gen-btn').innerHTML = '✅ Limite atteinte — essayez l\'app !';
-  document.getElementById('demo-limit').classList.add('show');
-}
+  }
+
+  let isAnnual = true;
+  function toggleBilling(){
+    isAnnual=!isAnnual;
+    const knob=document.getElementById('billing-knob');
+    const lblM=document.getElementById('lbl-monthly');
+    const lblA=document.getElementById('lbl-annual');
+    knob.style.transform=isAnnual?'translateX(24px)':'translateX(0)';
+    lblM.style.color=isAnnual?'var(--muted)':'var(--purple)';
+    lblM.style.fontWeight=isAnnual?'400':'600';
+    lblA.style.color=isAnnual?'var(--purple)':'var(--muted)';
+    lblA.style.fontWeight=isAnnual?'600':'400';
+    if(isAnnual){
+      document.getElementById('std-price').innerHTML='<sup>€</sup>24<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/an</span>';document.getElementById('std-equiv').textContent='soit 2€/mois — moins qu\'un café ☕';document.getElementById('std-period').innerHTML='<strong style="color:var(--green)">800 générations</strong> par an';
+      document.getElementById('std-period').innerHTML='/ mois · facturé 24,99€/an · <strong style="color:var(--green)">800 générations</strong>';
+      document.getElementById('std-gen').textContent='800 générations / an';
+      document.getElementById('std-btn').textContent='Choisir Standard annuel →';
+      document.getElementById('pro-price').innerHTML='<sup>€</sup>39<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/an</span>';document.getElementById('pro-equiv').textContent='soit 3,33€/mois — moins qu\'un verre en terrasse 🥂';document.getElementById('pro-period').innerHTML='<strong style="color:var(--green)">1500 générations</strong> par an';
+      document.getElementById('pro-period').innerHTML='/ mois · facturé 39,99€/an · <strong style="color:var(--green)">1500 générations</strong>';
+      document.getElementById('pro-gen').textContent='1500 générations / an';
+      document.getElementById('pro-btn').textContent='Choisir Pro annuel →';
+    } else {
+      document.getElementById('std-price').innerHTML='<sup>€</sup>4<span style="font-size:1.5rem">.99</span>';document.getElementById('std-equiv').textContent='';document.getElementById('std-period').innerHTML='200 générations par mois';
+      document.getElementById('std-period').innerHTML='/ mois · 200 générations/mois';
+      document.getElementById('std-gen').textContent='200 générations / mois';
+      document.getElementById('std-btn').textContent='Choisir Standard mensuel →';
+      document.getElementById('pro-price').innerHTML='<sup>€</sup>7<span style="font-size:1.5rem">.99</span>';document.getElementById('pro-equiv').textContent='';document.getElementById('pro-period').innerHTML='400 générations par mois';
+      document.getElementById('pro-period').innerHTML='/ mois · 400 générations/mois';
+      document.getElementById('pro-gen').textContent='400 générations / mois';
+      document.getElementById('pro-btn').textContent='Choisir Pro mensuel →';
+    }
+  }
+
+  updCounter();
+  if(count>=LIMIT){
+    document.getElementById('gen-btn').disabled=true;
+    document.getElementById('gen-btn').textContent='✅ Limite atteinte';
+    document.getElementById('limit-msg').classList.add('show');
+  }
 </script>
 </body>
 </html>
