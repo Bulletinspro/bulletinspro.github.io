@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politique de confidentialité — BulletinsPro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #6B2FD9;
+      --purple-light: #f3eeff;
+      --purple-border: #ddd5f5;
+      --ink: #1a1425;
+      --muted: #6b6880;
+      --bg: #fafaf9;
+      --white: #ffffff;
+      --border: #e8e6f0;
+      --green: #16a34a;
+      --green-light: #f0fdf4;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--purple);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .back-link {
+      margin-left: auto;
+      font-size: .85rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color .15s;
+    }
+    .back-link:hover { color: var(--purple); }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .hero {
+      margin-bottom: 48px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--purple-light);
+      color: var(--purple);
+      border: 1px solid var(--purple-border);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Lora', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    .rgpd-highlight {
+      background: var(--green-light);
+      border: 1.5px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 40px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .rgpd-highlight .icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+
+    .rgpd-highlight strong {
+      display: block;
+      color: var(--green);
+      font-size: .9rem;
+      margin-bottom: 4px;
+    }
+
+    .rgpd-highlight p {
+      color: #166534;
+      font-size: .875rem;
+      line-height: 1.6;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-family: 'Lora', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2 .num {
+      background: var(--purple);
+      color: #fff;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .7rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    p { margin-bottom: 12px; font-size: .9rem; color: #2d2a3e; }
+    p:last-child { margin-bottom: 0; }
+
+    ul {
+      list-style: none;
+      margin-bottom: 12px;
+    }
+
+    ul li {
+      font-size: .9rem;
+      color: #2d2a3e;
+      padding: 5px 0 5px 22px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--purple);
+      font-size: .8rem;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: .875rem;
+      color: var(--ink);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card p { font-size: .85rem; color: var(--muted); margin-bottom: 0; }
+
+    .no-data {
+      background: var(--purple-light);
+      border: 1px solid var(--purple-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: .85rem;
+      color: var(--purple);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .contact-box {
+      background: var(--white);
+      border: 1.5px solid var(--purple-border);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .contact-box p { color: var(--muted); font-size: .875rem; margin-bottom: 8px; }
+
+    .contact-box a {
+      color: var(--purple);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: .9rem;
+    }
+    .contact-box a:hover { text-decoration: underline; }
+
+    .updated {
+      font-size: .78rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    a { color: var(--purple); }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      main { padding: 32px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="https://bulletinspro.github.io/bulletinspro" class="logo">Bulletins<span>Pro</span></a>
+  <a href="https://bulletinspro.github.io/bulletinspro" class="back-link">← Retour à l'application</a>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="badge">🔒 Confidentialité</div>
+    <h1>Politique de confidentialité</h1>
+    <p class="subtitle">Dernière mise à jour : avril 2025</p>
+  </div>
+
+  <div class="rgpd-highlight">
+    <div class="icon">✅</div>
+    <div>
+      <strong>Conformité RGPD — Protection des élèves garantie</strong>
+      <p>BulletinsPro ne transmet jamais les vrais prénoms des élèves à l'IA. Avant chaque génération, les prénoms sont automatiquement remplacés par un prénom fictif. Aucune donnée nominative d'élève ne quitte votre appareil.</p>
+    </div>
+  </div>
+
+  <section>
+    <h2><span class="num">1</span> Qui sommes-nous ?</h2>
+    <p>BulletinsPro est un outil d'aide à la rédaction d'appréciations scolaires, développé et exploité par un enseignant indépendant. L'application est accessible à l'adresse <a href="https://bulletinspro.github.io/bulletinspro">bulletinspro.github.io/bulletinspro</a>.</p>
+    <p>Contact : <a href="mailto:bulletins.pro.app@gmail.com">bulletins.pro.app@gmail.com</a></p>
+  </section>
+
+  <section>
+    <h2><span class="num">2</span> Données collectées</h2>
+
+    <div class="card">
+      <div class="card-title">📊 Données de votre compte Google</div>
+      <p>Si vous activez la synchronisation Google Drive, BulletinsPro accède à votre compte Google uniquement pour créer et lire un fichier de sauvegarde dans votre Drive personnel. Aucune autre donnée Google n'est lue ou modifiée.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💾 Données stockées localement</div>
+      <p>Vos classes, listes d'élèves, observations pédagogiques sélectionnées et appréciations générées sont stockées dans le <strong>localStorage de votre navigateur</strong> et optionnellement dans votre Google Drive. Ces données ne transitent pas par nos serveurs.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔢 Compteur d'utilisations</div>
+      <p>Un compteur du nombre d'appréciations générées est stocké localement pour gérer les limites de votre abonnement. Ce compteur ne contient aucune donnée personnelle.</p>
+    </div>
+
+    <div class="no-data">
+      ⛔ BulletinsPro ne collecte pas d'adresse e-mail, ne crée pas de compte utilisateur, et ne stocke aucune donnée sur ses propres serveurs.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">3</span> Protection des données des élèves</h2>
+    <p>BulletinsPro a été conçu dans le strict respect du RGPD concernant les données des mineurs :</p>
+    <ul>
+      <li>Les prénoms des élèves sont <strong>automatiquement remplacés</strong> par un prénom fictif avant tout envoi à l'API d'intelligence artificielle</li>
+      <li>Le vrai prénom n'est réintégré dans l'appréciation <strong>qu'après réception</strong> de la réponse, côté client uniquement</li>
+      <li>Aucun nom, prénom, numéro ou information identificatrice d'élève n'est transmis à un tiers</li>
+      <li>Les données saisies restent sur votre appareil et/ou dans votre Google Drive personnel</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">4</span> Intelligence artificielle — OpenRouter</h2>
+    <p>BulletinsPro utilise l'API <a href="https://openrouter.ai" target="_blank" rel="noopener">OpenRouter</a> pour générer les appréciations, via le modèle Claude Sonnet d'Anthropic.</p>
+    <ul>
+      <li>Seules les <strong>observations pédagogiques anonymisées</strong> (pills sélectionnées) sont transmises à l'API</li>
+      <li>Aucun prénom réel, nom de famille ou donnée identificatrice n'est envoyé</li>
+      <li>OpenRouter est soumis à sa propre politique de confidentialité disponible sur <a href="https://openrouter.ai/privacy" target="_blank" rel="noopener">openrouter.ai/privacy</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">5</span> Google Drive — Synchronisation</h2>
+    <p>La synchronisation Google Drive est <strong>entièrement optionnelle</strong>. Si vous l'activez :</p>
+    <ul>
+      <li>BulletinsPro crée un fichier <code>bulletinspro_data.json</code> dans votre Drive</li>
+      <li>Ce fichier contient vos classes, listes d'élèves (prénoms uniquement si renseignés) et appréciations</li>
+      <li>Ce fichier est <strong>privé</strong> — seul vous y avez accès</li>
+      <li>Vous pouvez le supprimer à tout moment depuis votre Google Drive</li>
+      <li>BulletinsPro n'accède à aucun autre fichier de votre Drive</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="num">6</span> Abonnement et paiement</h2>
+    <p>Les paiements sont traités par <strong>Stripe</strong>, un prestataire de paiement certifié PCI-DSS. BulletinsPro ne stocke jamais vos informations bancaires. La politique de confidentialité de Stripe est disponible sur <a href="https://stripe.com/fr/privacy" target="_blank" rel="noopener">stripe.com/fr/privacy</a>.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">7</span> Vos droits</h2>
+    <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+    <ul>
+      <li><strong>Droit d'accès</strong> — vos données sont accessibles directement dans l'application</li>
+      <li><strong>Droit de suppression</strong> — effacez vos données via le bouton "Réinitialiser" dans l'app, ou supprimez le fichier Drive</li>
+      <li><strong>Droit à la portabilité</strong> — exportez vos données au format JSON via "Exporter les données"</li>
+      <li><strong>Droit d'opposition</strong> — désactivez la synchronisation Drive à tout moment</li>
+    </ul>
+    <p>Pour toute demande relative à vos données, contactez-nous à <a href="mailto:bulletins.pro.app@gmail.com">bulletins.pro.app@gmail.com</a>.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">8</span> Cookies et traceurs</h2>
+    <p>BulletinsPro n'utilise <strong>aucun cookie de tracking</strong>, aucune régie publicitaire, et aucun outil d'analyse tiers. Le seul stockage utilisé est le <code>localStorage</code> de votre navigateur, nécessaire au fonctionnement de l'application.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">9</span> Modifications</h2>
+    <p>Cette politique peut être mise à jour. En cas de modification substantielle, une notification sera affichée dans l'application. La date de dernière mise à jour est indiquée en haut de cette page.</p>
+  </section>
+
+  <div class="contact-box">
+    <p>Une question sur vos données ?</p>
+    <a href="mailto:bulletins.pro.app@gmail.com">bulletins.pro.app@gmail.com</a>
+  </div>
+
+  <p class="updated">© 2025 BulletinsPro — Tous droits réservés</p>
+</main>
+
+</body>
+</html>
