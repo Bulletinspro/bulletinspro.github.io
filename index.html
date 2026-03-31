@@ -209,6 +209,14 @@
       footer{flex-direction:column;align-items:flex-start;}
     }
   </style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8MM04N2Z6M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8MM04N2Z6M');
+</script>
 </head>
 <body>
 
@@ -227,7 +235,7 @@
     <h1>Vos bulletins rédigés en <em>quelques minutes</em></h1>
     <p class="hero-sub">Cochez les observations sur chaque élève, cliquez sur générer. BulletinsPro rédige des appréciations personnalisées grâce à l'IA — pour les professeurs de toutes les matières, les professeurs principaux et les CPE.</p>
     <div class="hero-actions">
-      <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary">Commencer — c'est gratuit →</a>
+      <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary" onclick="gtag('event','cta_click',{event_category:'conversion',event_label:'hero_cta'})">Commencer — c'est gratuit →</a>
       <a href="#comment" class="btn-ghost">Comment ça marche</a>
     </div>
     <div class="hero-proof">
@@ -407,7 +415,7 @@
           <li>Export PRONOTE</li>
           <li>Génération en masse</li>
         </ul>
-        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn solid" id="std-btn">Choisir Standard annuel →</a>
+        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn solid" id="std-btn" onclick="gtag('event','pricing_click',{event_category:'conversion',event_label:'standard_plan'})">Choisir Standard annuel →</a>
       </div>
 
       <div class="price-card">
@@ -421,7 +429,7 @@
           <li>Tout Standard inclus</li>
           <li>Accès prioritaire aux nouveautés</li>
         </ul>
-        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn ghost" id="pro-btn">Choisir Pro annuel →</a>
+        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn ghost" id="pro-btn" onclick="gtag('event','pricing_click',{event_category:'conversion',event_label:'pro_plan'})">Choisir Pro annuel →</a>
       </div>
     </div>
 
@@ -432,7 +440,7 @@
 <section class="banner">
   <p class="banner-quote">"Ma classe de 22 élèves en 45 minutes au lieu d'une heure trente."</p>
   <p class="banner-attr">— Alex, professeure d'anglais, utilisatrice BulletinsPro</p>
-  <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary">Commencer gratuitement — 25 appréciations offertes →</a>
+  <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary" onclick="gtag('event','cta_click',{event_category:'conversion',event_label:'banner_cta'})">Commencer gratuitement — 25 appréciations offertes →</a>
 </section>
 
 <footer>
@@ -461,7 +469,7 @@
   function getPills(){return[...document.querySelectorAll('.pp.on')].map(p=>p.textContent.trim());}
 
   async function doGen(){
-    if(count>=LIMIT){document.getElementById('limit-msg').classList.add('show');return;}
+    if(count>=LIMIT){document.getElementById('limit-msg').classList.add('show');gtag('event','demo_limit_reached',{event_category:'engagement',event_label:'demo_limit'});return;}
     const pills=getPills();
     if(!pills.length){alert('Cochez au moins une observation.');return;}
     const btn=document.getElementById('gen-btn');
@@ -474,10 +482,10 @@
       const d=await r.json();
       const txt=d.choices?.[0]?.message?.content?.trim();
       if(!txt)throw new Error();
-      count++;localStorage.setItem('bp_demo',count);updCounter();
+      count++;localStorage.setItem('bp_demo',count);updCounter();gtag('event','demo_generated',{event_category:'engagement',event_label:'landing_demo'});
       document.getElementById('res-text').textContent=txt;
       document.getElementById('demo-res').classList.add('show');
-      if(count>=LIMIT){btn.disabled=true;btn.textContent='✅ Essayez l\'app gratuitement !';document.getElementById('limit-msg').classList.add('show');}
+      if(count>=LIMIT){btn.disabled=true;btn.textContent='✅ Essayez l\'app gratuitement !';document.getElementById('limit-msg').classList.add('show');gtag('event','demo_limit_reached',{event_category:'engagement',event_label:'demo_limit'});}
       else{btn.disabled=false;btn.innerHTML='✨ Générer à nouveau';}
     }catch{btn.disabled=false;btn.innerHTML='✨ Générer l\'appréciation';alert('Erreur — veuillez réessayer.');}
   }
@@ -534,7 +542,7 @@
   if(count>=LIMIT){
     document.getElementById('gen-btn').disabled=true;
     document.getElementById('gen-btn').textContent='✅ Limite atteinte';
-    document.getElementById('limit-msg').classList.add('show');
+    document.getElementById('limit-msg').classList.add('show');gtag('event','demo_limit_reached',{event_category:'engagement',event_label:'demo_limit'});
   }
 </script>
 </body>
