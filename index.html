@@ -399,6 +399,7 @@
         <div class="price-period" id="std-period"><strong style="color:var(--green)">800 générations</strong> par an</div>
         <ul class="price-feats">
           <li id="std-gen">800 générations / an</li>
+          <li><strong>Idéal jusqu'à ~9 classes</strong> de 25 élèves</li>
           <li>Synchronisation Drive</li>
           <li>Toutes les matières</li>
           <li>Export PRONOTE</li>
@@ -414,8 +415,8 @@
         <div class="price-period" id="pro-period"><strong style="color:var(--green)">1500 générations</strong> par an</div>
         <ul class="price-feats">
           <li id="pro-gen">1500 générations / an</li>
+          <li><strong>Idéal jusqu'à ~18 classes</strong> de 25 élèves</li>
           <li>Tout Standard inclus</li>
-          <li>Idéal 10+ classes</li>
           <li>Accès prioritaire aux nouveautés</li>
         </ul>
         <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn ghost" id="pro-btn">Choisir Pro annuel →</a>
@@ -508,11 +509,11 @@
     } else {
       document.getElementById('std-price').innerHTML='<sup>€</sup>4<span style="font-size:1.5rem">.99</span>';document.getElementById('std-equiv').textContent='';document.getElementById('std-period').innerHTML='200 générations par mois';
       document.getElementById('std-period').innerHTML='/ mois · 200 générations/mois';
-      document.getElementById('std-gen').textContent='200 générations / mois';
+      document.getElementById('std-gen').textContent='200 générations / mois (~9 classes/an)';
       document.getElementById('std-btn').textContent='Choisir Standard mensuel →';
       document.getElementById('pro-price').innerHTML='<sup>€</sup>7<span style="font-size:1.5rem">.99</span>';document.getElementById('pro-equiv').textContent='';document.getElementById('pro-period').innerHTML='400 générations par mois';
       document.getElementById('pro-period').innerHTML='/ mois · 400 générations/mois';
-      document.getElementById('pro-gen').textContent='400 générations / mois';
+      document.getElementById('pro-gen').textContent='400 générations / mois (~18 classes/an)';
       document.getElementById('pro-btn').textContent='Choisir Pro mensuel →';
     }
   }
