@@ -436,8 +436,8 @@
 <footer>
   <a href="#" class="footer-logo">Bulletins<span>Pro</span></a>
   <div class="footer-links">
-    <a href="privacy.html">Politique de confidentialité</a>
-    <a href="mailto:bulletins.pro.app@gmail.com">Contact</a>
+    <a href="https://bulletinspro.github.io/bulletinspro/privacy.html" target="_blank">Politique de confidentialité</a>
+    <a href="mailto:bulletins.pro.app@gmail.com" id="contact-link" onclick="copyEmail(event)">Contact</a>
   </div>
   <p>© 2025 BulletinsPro</p>
 </footer>
@@ -516,6 +516,16 @@
       document.getElementById('pro-gen').textContent='400 générations / mois (~18 classes/an)';
       document.getElementById('pro-btn').textContent='Choisir Pro mensuel →';
     }
+  }
+
+  function copyEmail(e){
+    // Try mailto first, if no client available copy to clipboard
+    const el = document.getElementById('contact-link');
+    navigator.clipboard && navigator.clipboard.writeText('bulletins.pro.app@gmail.com').then(()=>{
+      const orig = el.textContent;
+      el.textContent = '✅ Email copié !';
+      setTimeout(()=>el.textContent=orig, 2000);
+    });
   }
 
   updCounter();
