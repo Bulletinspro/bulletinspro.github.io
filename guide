@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide BulletinsPro — Tutoriel complet</title>
+  <meta name="description" content="Apprenez à utiliser BulletinsPro : créer une classe, générer des appréciations, utiliser le module PP, le profil vocal et la génération en masse.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple:#6B2FD9; --purple-d:#5520b0; --purple-l:#f0eaff; --purple-b:#d8ccf5;
+      --ink:#1c1830; --ink2:#3d3858; --muted:#7c7899;
+      --cream:#fdf8f2; --cream2:#f7f1e8; --white:#ffffff;
+      --border:#e8e3f0; --green:#16a34a; --green-l:#f0fdf4;
+      --teal:#0d9488; --teal-l:#f0fdfa; --teal-b:#99f6e4;
+      --amber:#b45309; --amber-l:#fffbeb; --amber-b:#fde68a;
+      --accent:#e8a020;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.6; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(253,248,242,.96); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 58px; display: flex; align-items: center; padding: 0 32px; gap: 16px; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--purple); text-decoration: none; }
+    .nav-logo span { color: var(--ink); }
+    .nav-sep { color: var(--border); font-size: 1.2rem; }
+    .nav-title { font-size: .85rem; color: var(--muted); }
+    .nav-cta { margin-left: auto; background: var(--purple); color: #fff; padding: 7px 18px; border-radius: 8px; font-size: .83rem; font-weight: 600; text-decoration: none; transition: all .15s; }
+    .nav-cta:hover { background: var(--purple-d); }
+
+    /* LAYOUT */
+    .layout { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; padding-top: 58px; }
+
+    /* SIDEBAR NAV */
+    .sidebar { position: sticky; top: 58px; height: calc(100vh - 58px); overflow-y: auto; padding: 32px 24px; background: var(--white); border-right: 1px solid var(--border); }
+    .sidebar-label { font-family: 'DM Mono', monospace; font-size: .6rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 12px; margin-top: 24px; display: block; }
+    .sidebar-label:first-child { margin-top: 0; }
+    .sidebar-link { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; text-decoration: none; font-size: .85rem; color: var(--ink2); transition: all .12s; margin-bottom: 2px; }
+    .sidebar-link:hover { background: var(--purple-l); color: var(--purple); }
+    .sidebar-link.active { background: var(--purple-l); color: var(--purple); font-weight: 600; }
+    .sidebar-link .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dot-purple { background: var(--purple); }
+    .dot-teal { background: var(--teal); }
+    .dot-amber { background: var(--amber); }
+    .dot-green { background: var(--green); }
+
+    /* CONTENT */
+    .content { padding: 48px 64px 96px; max-width: 820px; }
+
+    /* HERO */
+    .guide-hero { background: linear-gradient(135deg, var(--purple), #a855f7); border-radius: 20px; padding: 48px; color: #fff; margin-bottom: 56px; position: relative; overflow: hidden; }
+    .guide-hero::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; background: rgba(255,255,255,.07); border-radius: 50%; }
+    .guide-hero .tag { font-family: 'DM Mono', monospace; font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.7); margin-bottom: 12px; display: block; }
+    .guide-hero h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; line-height: 1.2; }
+    .guide-hero p { font-size: .95rem; color: rgba(255,255,255,.85); max-width: 480px; line-height: 1.7; margin-bottom: 24px; }
+    .guide-hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .guide-hero-tag { background: rgba(255,255,255,.15); border-radius: 999px; padding: 5px 14px; font-size: .78rem; font-weight: 500; }
+
+    /* SECTIONS */
+    .guide-section { margin-bottom: 72px; scroll-margin-top: 80px; }
+    .section-badge { display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 999px; font-size: .72rem; font-weight: 700; font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 16px; }
+    .badge-purple { background: var(--purple-l); color: var(--purple); }
+    .badge-teal { background: var(--teal-l); color: var(--teal); }
+    .badge-amber { background: var(--amber-l); color: var(--amber); }
+    .badge-green { background: var(--green-l); color: var(--green); }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; letter-spacing: -.01em; }
+    .section-intro { font-size: .95rem; color: var(--muted); margin-bottom: 32px; line-height: 1.7; max-width: 600px; }
+
+    /* STEPS */
+    .steps-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .step-item { display: grid; grid-template-columns: 64px 1fr; border-bottom: 1px solid var(--border); background: var(--white); transition: background .15s; }
+    .step-item:last-child { border-bottom: none; }
+    .step-item:hover { background: #faf9fd; }
+    .step-num-col { display: flex; align-items: flex-start; justify-content: center; padding: 24px 0; }
+    .step-num-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .circle-purple { background: var(--purple); }
+    .circle-teal { background: var(--teal); }
+    .circle-amber { background: var(--amber); }
+    .circle-green { background: var(--green); }
+    .step-body { padding: 24px 24px 24px 0; }
+    .step-title { font-size: .95rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .step-desc { font-size: .86rem; color: var(--ink2); line-height: 1.65; }
+
+    /* TIP BOX */
+    .tip { border-radius: 12px; padding: 16px 20px; margin: 24px 0; display: flex; gap: 14px; align-items: flex-start; }
+    .tip-purple { background: var(--purple-l); border: 1px solid var(--purple-b); }
+    .tip-green { background: var(--green-l); border: 1px solid #bbf7d0; }
+    .tip-amber { background: var(--amber-l); border: 1px solid var(--amber-b); }
+    .tip-teal { background: var(--teal-l); border: 1px solid var(--teal-b); }
+    .tip-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .tip-text { font-size: .86rem; line-height: 1.65; color: var(--ink2); }
+    .tip-text strong { color: var(--ink); }
+
+    /* SCREEN MOCK */
+    .screen-mock { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; overflow: hidden; margin: 24px 0; box-shadow: 0 4px 20px rgba(28,24,48,.08); }
+    .screen-bar { background: var(--cream2); border-bottom: 1px solid var(--border); padding: 10px 14px; display: flex; align-items: center; gap: 8px; }
+    .screen-dots { display: flex; gap: 5px; }
+    .screen-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .screen-dot:nth-child(1) { background: #ff5f57; }
+    .screen-dot:nth-child(2) { background: #ffbd2e; }
+    .screen-dot:nth-child(3) { background: #28ca41; }
+    .screen-url { font-family: 'DM Mono', monospace; font-size: .65rem; color: var(--muted); margin-left: 8px; }
+    .screen-body { padding: 20px; }
+
+    /* PILL DEMO */
+    .pill-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+    .pill-demo { padding: 5px 12px; border-radius: 999px; border: 1.5px solid; font-size: .78rem; font-weight: 500; }
+    .pill-pos { border-color: #d1fae5; background: #f0fdf4; color: #15803d; }
+    .pill-pos-sel { border-color: #16a34a; background: #dcfce7; color: #15803d; font-weight: 700; }
+    .pill-neu { border-color: #fde68a; background: #fffbeb; color: #92400e; }
+    .pill-neg { border-color: #fecaca; background: #fff5f5; color: #b91c1c; }
+    .pill-neg-sel { border-color: #dc2626; background: #fee2e2; color: #b91c1c; font-weight: 700; }
+
+    /* VERDICT */
+    .verdict-row-demo { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+    .verdict-demo { padding: 5px 14px; border-radius: 999px; border: 1.5px solid var(--border); font-size: .78rem; color: var(--muted); background: var(--white); }
+    .verdict-demo.sel { background: var(--purple); color: #fff; border-color: var(--purple); font-weight: 600; }
+
+    /* KEY */
+    kbd { background: var(--cream2); border: 1px solid var(--border); border-radius: 5px; padding: 2px 8px; font-family: 'DM Mono', monospace; font-size: .75rem; color: var(--ink2); }
+
+    /* DIVIDER */
+    .guide-divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+    /* CTA */
+    .guide-cta { background: linear-gradient(135deg, var(--ink), #2d1a5c); border-radius: 20px; padding: 48px; text-align: center; color: #fff; }
+    .guide-cta h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-style: italic; margin-bottom: 12px; }
+    .guide-cta p { font-size: .92rem; color: rgba(255,255,255,.7); margin-bottom: 28px; }
+    .btn-white { background: #fff; color: var(--purple); padding: 13px 28px; border-radius: 10px; font-size: .92rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all .15s; box-shadow: 0 4px 20px rgba(0,0,0,.2); }
+    .btn-white:hover { background: var(--purple-l); transform: translateY(-2px); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .content { padding: 32px 24px 64px; max-width: 100%; }
+    }
+    @media (max-width: 600px) {
+      .content { padding: 24px 16px 48px; }
+      .guide-hero { padding: 32px 24px; }
+      .guide-hero h1 { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://bulletinspro.github.io" class="nav-logo">Bulletins<span>Pro</span></a>
+  <span class="nav-sep">·</span>
+  <span class="nav-title">Guide d'utilisation</span>
+  <a href="https://bulletinspro.github.io/bulletinspro" class="nav-cta">Ouvrir l'app →</a>
+</nav>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <span class="sidebar-label">Démarrer</span>
+    <a href="#intro" class="sidebar-link active"><span class="dot dot-purple"></span>Introduction</a>
+    <a href="#classe" class="sidebar-link"><span class="dot dot-purple"></span>Créer une classe</a>
+    <a href="#profil" class="sidebar-link"><span class="dot dot-purple"></span>Profil d'un élève</a>
+    <a href="#generer" class="sidebar-link"><span class="dot dot-purple"></span>Générer</a>
+    <a href="#masse" class="sidebar-link"><span class="dot dot-purple"></span>Génération en masse</a>
+
+    <span class="sidebar-label">Fonctions avancées</span>
+    <a href="#trimestres" class="sidebar-link"><span class="dot dot-green"></span>Trimestres & resets</a>
+    <a href="#classe-apprec" class="sidebar-link"><span class="dot dot-green"></span>Appréciation de classe</a>
+    <a href="#vocal" class="sidebar-link"><span class="dot dot-green"></span>Profil vocal</a>
+
+    <span class="sidebar-label">Modules spéciaux</span>
+    <a href="#pp" class="sidebar-link"><span class="dot dot-teal"></span>Professeur Principal</a>
+    <a href="#cpe" class="sidebar-link"><span class="dot dot-amber"></span>CPE</a>
+
+    <span class="sidebar-label">Aller plus loin</span>
+    <a href="#drive" class="sidebar-link"><span class="dot dot-green"></span>Google Drive</a>
+    <a href="#pronote" class="sidebar-link"><span class="dot dot-green"></span>Export PRONOTE</a>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- HERO -->
+    <div class="guide-hero" id="intro">
+      <span class="tag">Guide complet — BulletinsPro</span>
+      <h1>Maîtrisez BulletinsPro en 10 minutes</h1>
+      <p>Ce guide couvre tout — de la création de votre première classe jusqu'aux fonctions avancées comme le profil vocal, le module PP et la génération en masse.</p>
+      <div class="guide-hero-tags">
+        <span class="guide-hero-tag">🎓 Professeurs de matière</span>
+        <span class="guide-hero-tag">👨‍🏫 Prof. Principal</span>
+        <span class="guide-hero-tag">📋 CPE</span>
+      </div>
+    </div>
+
+    <!-- CRÉER UNE CLASSE -->
+    <section class="guide-section" id="classe">
+      <div class="section-badge badge-purple">① Démarrer</div>
+      <h2 class="section-title">Créer une classe</h2>
+      <p class="section-intro">La première étape est de créer votre classe. Cela prend moins de 2 minutes et ne se fait qu'une fois par an.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Cliquez sur "+ Nouvelle classe" dans la barre latérale gauche</div>
+            <div class="step-desc">Une fenêtre s'ouvre. Donnez un nom à votre classe (ex : "3ème A", "Terminale B Anglais").</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">2</div></div>
+          <div class="step-body">
+            <div class="step-title">Choisissez la matière et le niveau scolaire</div>
+            <div class="step-desc">Le niveau détermine quelles sections s'afficheront — par exemple les sections Brevet en 3e, EAF en 1ère, Grand Oral en Terminale.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">3</div></div>
+          <div class="step-body">
+            <div class="step-title">Choisissez trimestres ou semestres, et la limite de caractères</div>
+            <div class="step-desc">La limite de caractères correspond à la limite dans PRONOTE. 750 par défaut, ajustable entre 100 et 1000.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">4</div></div>
+          <div class="step-body">
+            <div class="step-title">Ajoutez vos élèves</div>
+            <div class="step-desc">Vous pouvez ajouter les élèves un par un avec leur numéro et leur genre, ou importer une liste directement depuis PRONOTE (CSV ou coller-coller). Le bouton <strong>📥 Importer</strong> accepte le format PRONOTE "NOM Prénom".</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip tip-purple">
+        <span class="tip-icon">💡</span>
+        <div class="tip-text"><strong>Conseil :</strong> Importez depuis PRONOTE plutôt que de saisir manuellement. Exportez la liste de votre classe depuis PRONOTE, copiez-la et collez-la dans BulletinsPro avec l'option "NOM Prénom (PRONOTE)".</div>
+      </div>
+    </section>
+
+    <hr class="guide-divider">
+
+    <!-- PROFIL ÉLÈVE -->
+    <section class="guide-section" id="profil">
+      <div class="section-badge badge-purple">② Profil élève</div>
+      <h2 class="section-title">Configurer le profil d'un élève</h2>
+      <p class="section-intro">Cliquez sur un élève dans la liste pour ouvrir son profil. C'est ici que vous cochez les observations qui serviront à générer l'appréciation.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Choisissez un verdict global (optionnel)</div>
+            <div class="step-desc">La première section "Bilan global du trimestre" est optionnelle. Si vous cochez un verdict, l'appréciation commencera par cette phrase. Sinon, l'IA choisira elle-même l'ouverture.</div>
+            <div class="verdict-row-demo">
+              <span class="verdict-demo">🌟 Excellent</span>
+              <span class="verdict-demo sel">✅ Bon trimestre</span>
+              <span class="verdict-demo">🟡 Satisfaisant</span>
+              <span class="verdict-demo">🟠 Fragile</span>
+              <span class="verdict-demo">❌ Insuffisant</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">2</div></div>
+          <div class="step-body">
+            <div class="step-title">Cochez les observations dans chaque catégorie</div>
+            <div class="step-desc">Les pills vertes = positif, orange = neutre/mitigé, rouges = négatif. Cochez ce qui correspond à l'élève. Plus vous cochez d'éléments, plus l'appréciation est précise.</div>
+            <div class="pill-row">
+              <span class="pill-demo pill-pos-sel">Bons résultats ✓</span>
+              <span class="pill-demo pill-pos">Progression régulière</span>
+              <span class="pill-demo pill-neu">Résultats fragiles</span>
+              <span class="pill-demo pill-neg">Résultats insuffisants</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">3</div></div>
+          <div class="step-body">
+            <div class="step-title">Ajoutez le nom de l'élève si vous souhaitez le personnaliser</div>
+            <div class="step-desc">En haut du profil, un champ permet d'ajouter le prénom. Si renseigné, l'IA utilisera le prénom dans l'appréciation. <strong>Les prénoms ne sont jamais transmis à l'IA</strong> — ils sont remplacés automatiquement par un prénom fictif avant envoi.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip tip-green">
+        <span class="tip-icon">✅</span>
+        <div class="tip-text"><strong>Bonne pratique :</strong> Vous n'avez pas besoin de tout cocher. 3 à 5 observations bien choisies donnent une appréciation plus naturelle qu'une liste exhaustive.</div>
+      </div>
+    </section>
+
+    <hr class="guide-divider">
+
+    <!-- GÉNÉRER -->
+    <section class="guide-section" id="generer">
+      <div class="section-badge badge-purple">③ Générer</div>
+      <h2 class="section-title">Générer une appréciation</h2>
+      <p class="section-intro">Une fois les observations cochées, la génération prend quelques secondes.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Cliquez sur "↻ Générer" en bas du profil</div>
+            <div class="step-desc">Ou utilisez le raccourci clavier <kbd>Ctrl</kbd> + <kbd>↵</kbd> pour générer sans quitter le clavier. L'appréciation apparaît en 3 à 5 secondes.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">2</div></div>
+          <div class="step-body">
+            <div class="step-title">Relisez et ajustez si besoin</div>
+            <div class="step-desc">Le champ texte est entièrement modifiable. Vous pouvez corriger un mot, ajouter une précision, ou régénérer si le résultat ne vous convient pas — chaque génération est différente.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">3</div></div>
+          <div class="step-body">
+            <div class="step-title">Copiez dans PRONOTE avec 📋 Copier</div>
+            <div class="step-desc">Le bouton copie l'appréciation dans votre presse-papier. Collez-la directement dans PRONOTE. Ou utilisez l'export PRONOTE pour toute la classe d'un coup.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip tip-purple">
+        <span class="tip-icon">🎙️</span>
+        <div class="tip-text"><strong>Dicter vs Générer :</strong> Le bouton <strong>"🎙️ Dicter"</strong> dicte directement dans le champ texte (comme une saisie vocale). Le bouton <strong>"🎙️ Profil vocal"</strong> (en haut du profil, dans la barre colorée) analyse ce que vous dites et coche automatiquement les observations correspondantes — avant la génération. Voir la section <a href="#vocal" style="color:var(--purple)">Profil vocal</a> pour les détails.</div>
+      </div>
+    </section>
+
+    <hr class="guide-divider">
+
+    <!-- GÉNÉRATION EN MASSE -->
+    <section class="guide-section" id="masse">
+      <div class="section-badge badge-purple">④ En masse</div>
+      <h2 class="section-title">Génération en masse</h2>
+      <p class="section-intro">Une fois tous vos élèves configurés, générez toutes les appréciations de la classe en un seul clic.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Cochez les observations de tous vos élèves</div>
+            <div class="step-desc">Passez sur chaque élève et cochez les observations. Vous pouvez le faire au fil des cours, entre deux cours, ou tout d'un coup avant les bulletins.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">2</div></div>
+          <div class="step-body">
+            <div class="step-title">Cliquez sur "⚡ Générer tout" en haut à droite</div>
+            <div class="step-desc">BulletinsPro génère les appréciations de toute la classe l'une après l'autre automatiquement. Une classe de 25 élèves prend environ 2 à 3 minutes.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">3</div></div>
+          <div class="step-body">
+            <div class="step-title">Relisez depuis la "Vue complète"</div>
+            <div class="step-desc">L'onglet <strong>📄 Vue complète</strong> affiche toutes les appréciations de la classe sur une seule page. Vous pouvez les modifier individuellement, tout copier d'un coup, ou exporter vers PRONOTE.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip tip-amber">
+        <span class="tip-icon">⚠️</span>
+        <div class="tip-text"><strong>Important :</strong> La génération en masse utilise une génération par élève. Pour 25 élèves, cela consomme 25 générations de votre quota. Vérifiez votre solde affiché en haut à droite avant de lancer.</div>
+      </div>
+    </section>
+
+    <hr class="guide-divider">
+
+    <!-- TRIMESTRES & RESETS -->
+    <section class="guide-section" id="trimestres">
+      <div class="section-badge badge-green">⑤ Trimestres</div>
+      <h2 class="section-title">Gérer les trimestres et les resets</h2>
+      <p class="section-intro">BulletinsPro garde les données de chaque trimestre séparément. Vous pouvez naviguer entre T1, T2 et T3 sans perdre vos données.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Changez de trimestre avec les boutons T1 · T2 · T3</div>
+            <div class="step-desc">En haut de l'écran, les boutons T1, T2, T3 permettent de basculer entre les périodes. Chaque trimestre a ses propres observations cochées et ses propres appréciations générées.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">2</div></div>
+          <div class="step-body">
+            <div class="step-title">Au début d'un nouveau trimestre — les cases restent cochées</div>
+            <div class="step-desc">Quand vous passez au T2, les observations du T1 restent visibles comme point de départ. C'est voulu — vous ajustez ce qui a changé plutôt que de repartir de zéro. Si un élève a progressé, vous décochez les observations négatives et cochez les positives.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">3</div></div>
+          <div class="step-body">
+            <div class="step-title">Réinitialiser un élève entier — ↺ Tout réinitialiser</div>
+            <div class="step-desc">Dans la barre colorée en haut du profil de l'élève, le bouton <strong>↺ Tout réinitialiser</strong> décoche toutes les observations de cet élève. Utile si le profil a complètement changé.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">4</div></div>
+          <div class="step-body">
+            <div class="step-title">Réinitialiser une catégorie — ↺ reset</div>
+            <div class="step-desc">Chaque catégorie (Résultats, Travail, Comportement…) a un petit bouton <strong>↺ reset</strong> dans son titre. Il ne décoche que les cases de cette catégorie, en laissant les autres intactes.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip tip-teal">
+        <span class="tip-icon">💡</span>
+        <div class="tip-text"><strong>Astuce T2/T3 :</strong> Vous pouvez coller l'appréciation du trimestre précédent dans le champ "Appréciation T1 (optionnel)" qui apparaît en T2 et T3. L'IA s'en servira pour éviter les répétitions et montrer l'évolution de l'élève.</div>
+      </div>
+    </section>
+
+    <hr class="guide-divider">
+
+    <!-- APPRÉCIATION DE CLASSE -->
+    <section class="guide-section" id="classe-apprec">
+      <div class="section-badge badge-green">⑥ Classe</div>
+      <h2 class="section-title">Appréciation de classe</h2>
+      <p class="section-intro">En plus des appréciations individuelles, BulletinsPro peut générer une appréciation générale de la classe — celle qui apparaît sur le bulletin au-dessus des appréciations individuelles.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Cliquez sur l'onglet "📋 Classe"</div>
+            <div class="step-desc">En haut de l'écran, l'onglet Classe ouvre une section dédiée à l'appréciation globale de votre groupe.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">2</div></div>
+          <div class="step-body">
+            <div class="step-title">Cochez les observations qui caractérisent votre classe</div>
+            <div class="step-desc">Même système de pills, mais cette fois pour décrire la dynamique collective — ambiance, niveau général, comportement du groupe, points à améliorer collectivement.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">3</div></div>
+          <div class="step-body">
+            <div class="step-title">Générez l'appréciation de classe</div>
+            <div class="step-desc">Cliquez sur "↻ Générer" pour obtenir une appréciation synthétique du groupe. Elle est adaptée au ton collectif et ne mentionne aucun élève individuellement.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="guide-divider">
+
+    <!-- PROFIL VOCAL -->
+    <section class="guide-section" id="vocal">
+      <div class="section-badge badge-purple">⑦ Vocal</div>
+      <h2 class="section-title">Profil vocal — l'IA coche pour vous</h2>
+      <p class="section-intro">Le profil vocal vous permet de décrire oralement le profil d'un élève. L'IA analyse ce que vous dites et coche automatiquement les observations correspondantes.</p>
+
+      <div class="tip tip-amber">
+        <span class="tip-icon">⚠️</span>
+        <div class="tip-text"><strong>Compatibilité :</strong> Le profil vocal fonctionne sur <strong>Chrome et Edge</strong> sur ordinateur et mobile. Il ne fonctionne pas sur Safari ou Firefox.</div>
+      </div>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Cliquez sur "🎙️ Profil vocal" dans la barre du profil élève</div>
+            <div class="step-desc">Le bouton se trouve dans la barre colorée en haut du profil de l'élève — pas en bas avec les boutons de génération. Autorisez l'accès au microphone si demandé.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">2</div></div>
+          <div class="step-body">
+            <div class="step-title">Parlez naturellement — décrivez le profil de l'élève</div>
+            <div class="step-desc">Par exemple : <em>"Élève sérieuse, bons résultats en général, travail régulier, mais bavarde parfois et manque de concentration. Participe bien à l'oral. Pour continuer à progresser, elle devrait s'impliquer davantage dans le travail écrit."</em></div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">3</div></div>
+          <div class="step-body">
+            <div class="step-title">Cliquez "✓ Terminer et analyser"</div>
+            <div class="step-desc">L'IA analyse votre description et coche les observations correspondantes. Les correspondances certaines sont cochées en vert. Les correspondances probables apparaissent en <strong style="color:#92400e">jaune dashed</strong> avec des boutons ✓/✕ pour confirmer ou ignorer.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">4</div></div>
+          <div class="step-body">
+            <div class="step-title">Confirmez ou rejetez les suggestions jaunes</div>
+            <div class="step-desc">Pour chaque suggestion en jaune, cliquez ✓ pour la confirmer (elle devient verte) ou ✕ pour l'ignorer. Vous pouvez aussi cocher/décocher manuellement n'importe quelle observation après.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-purple">5</div></div>
+          <div class="step-body">
+            <div class="step-title">Générez l'appréciation normalement</div>
+            <div class="step-desc">Une fois les observations en ordre, cliquez sur "↻ Générer" comme d'habitude. Le profil vocal est juste une façon plus rapide de remplir les observations — la génération reste identique.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip tip-green">
+        <span class="tip-icon">✅</span>
+        <div class="tip-text"><strong>Conseil :</strong> Parlez en phrases complètes plutôt qu'en mots-clés. L'IA comprend mieux "les résultats sont satisfaisants mais le travail manque de régularité" que "résultats ok, travail irrégulier".</div>
+      </div>
+    </section>
+
+    <hr class="guide-divider">
+
+    <!-- PP MODULE -->
+    <section class="guide-section" id="pp">
+      <div class="section-badge badge-teal">⑧ PP</div>
+      <h2 class="section-title">Module Professeur Principal</h2>
+      <p class="section-intro">Le module PP est entièrement séparé des classes de matière. Il est accessible depuis la section "Prof. Principal" dans la barre latérale.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-teal">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Créez un groupe PP — "+ Nouvelle classe PP"</div>
+            <div class="step-desc">Dans la sidebar, sous "Prof. Principal", cliquez sur "+ Nouvelle classe PP". Donnez un nom, choisissez le niveau et le type de périodes.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-teal">2</div></div>
+          <div class="step-body">
+            <div class="step-title">Importez vos élèves</div>
+            <div class="step-desc">Même système que pour les classes normales — import CSV, paste depuis PRONOTE, ou ajout manuel avec numéro et genre. Vous pouvez ajouter le prénom de chaque élève dans le champ prévu.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-teal">3</div></div>
+          <div class="step-body">
+            <div class="step-title">Renseignez la vie scolaire (absences, retards)</div>
+            <div class="step-desc">En haut du profil PP de chaque élève, une section "Vie scolaire" permet de saisir le nombre d'absences et de retards du trimestre. Ces données sont intégrées dans le bilan généré.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-teal">4</div></div>
+          <div class="step-body">
+            <div class="step-title">Cochez les observations PP</div>
+            <div class="step-desc">Les sections PP sont adaptées au rôle : Bilan général observé par plusieurs professeurs, Compétences transversales, Progression, Besoins spécifiques, Orientation, Vie scolaire, Conclusion du conseil de classe.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-teal">5</div></div>
+          <div class="step-body">
+            <div class="step-title">Générez le bilan PP</div>
+            <div class="step-desc">Le bilan PP est une synthèse de l'équipe pédagogique — il n'est pas une appréciation de matière. L'IA rédige un texte fluide, institutionnel, qui donne la voix du conseil de classe.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip tip-teal">
+        <span class="tip-icon">👨‍🏫</span>
+        <div class="tip-text"><strong>Profil vocal PP :</strong> Le bouton "🎙️ Profil vocal" est aussi disponible dans le module PP. Décrivez le bilan de l'élève tel que vous le percevez depuis les retours de l'équipe — l'IA coche les observations correspondantes.</div>
+      </div>
+    </section>
+
+    <hr class="guide-divider">
+
+    <!-- CPE -->
+    <section class="guide-section" id="cpe">
+      <div class="section-badge badge-amber">⑨ CPE</div>
+      <h2 class="section-title">Module CPE</h2>
+      <p class="section-intro">Le module CPE génère des suivis comportementaux et d'assiduité — jamais de résultats scolaires. Il est accessible depuis la section "CPE" dans la barre latérale.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-amber">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Créez un suivi CPE — "+ Nouveau suivi CPE"</div>
+            <div class="step-desc">Dans la sidebar, sous "CPE", cliquez sur "+ Nouveau suivi CPE". Donnez un nom, choisissez le niveau, les périodes et la limite de caractères (350 par défaut).</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-amber">2</div></div>
+          <div class="step-body">
+            <div class="step-title">Importez vos élèves</div>
+            <div class="step-desc">Même système d'import que PP et les classes normales.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-amber">3</div></div>
+          <div class="step-body">
+            <div class="step-title">Cochez les observations CPE</div>
+            <div class="step-desc">4 catégories uniquement : <strong>Assiduité & Ponctualité</strong>, <strong>Comportement & Respect du règlement</strong>, <strong>Suivi & Accompagnement</strong>, <strong>Conclusion & Décision</strong>. Pas de résultats, pas de travail, pas de matières.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-amber">4</div></div>
+          <div class="step-body">
+            <div class="step-title">Générez le suivi CPE</div>
+            <div class="step-desc">Le texte généré est court (350 caractères par défaut), factuel, professionnel. Il respecte le rôle du CPE — sans jugement sur la personne, avec une attente ou décision concrète si le bilan est négatif.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="guide-divider">
+
+    <!-- DRIVE -->
+    <section class="guide-section" id="drive">
+      <div class="section-badge badge-green">⑩ Drive</div>
+      <h2 class="section-title">Synchronisation Google Drive</h2>
+      <p class="section-intro">BulletinsPro peut sauvegarder automatiquement toutes vos données sur votre Google Drive personnel. Aucune donnée n'est stockée sur nos serveurs.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Cliquez sur "Se connecter avec Google"</div>
+            <div class="step-desc">Au premier lancement, ou depuis la barre de synchronisation en haut de l'écran. Autorisez l'accès à Google Drive.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">2</div></div>
+          <div class="step-body">
+            <div class="step-title">La sync est automatique</div>
+            <div class="step-desc">Chaque modification est sauvegardée sur votre Drive. Vous pouvez accéder à BulletinsPro depuis n'importe quel appareil et retrouver toutes vos classes.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip tip-green">
+        <span class="tip-icon">🔒</span>
+        <div class="tip-text"><strong>Vie privée :</strong> Les données sont stockées dans votre Drive personnel, dans un fichier que vous seul pouvez voir. BulletinsPro n'a jamais accès à vos autres fichiers Drive.</div>
+      </div>
+    </section>
+
+    <hr class="guide-divider">
+
+    <!-- PRONOTE -->
+    <section class="guide-section" id="pronote">
+      <div class="section-badge badge-green">⑪ PRONOTE</div>
+      <h2 class="section-title">Export PRONOTE</h2>
+      <p class="section-intro">Une fois vos appréciations générées, vous pouvez les exporter directement dans PRONOTE.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">1</div></div>
+          <div class="step-body">
+            <div class="step-title">Depuis la Vue complète, cliquez "⬇ PRONOTE"</div>
+            <div class="step-desc">Dans l'onglet "📄 Vue complète", le bouton PRONOTE génère un fichier formaté pour l'import direct dans PRONOTE client (version logiciel installée).</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">2</div></div>
+          <div class="step-body">
+            <div class="step-title">Importez le fichier dans PRONOTE client</div>
+            <div class="step-desc">Dans PRONOTE, allez dans Bulletins → Saisie des appréciations → Importer. Sélectionnez le fichier téléchargé.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num-col"><div class="step-num-circle circle-green">3</div></div>
+          <div class="step-body">
+            <div class="step-title">Alternative — "📋 Tout copier"</div>
+            <div class="step-desc">Si vous utilisez PRONOTE en ligne, utilisez "📋 Tout copier" pour copier toutes les appréciations dans le presse-papier, puis collez-les manuellement dans PRONOTE.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="guide-cta">
+      <h2>Prêt à gagner du temps ?</h2>
+      <p>25 appréciations gratuites — sans inscription. Commencez maintenant.</p>
+      <a href="https://bulletinspro.github.io/bulletinspro" class="btn-white">Ouvrir BulletinsPro →</a>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Active sidebar link on scroll
+  const sections = document.querySelectorAll('.guide-section');
+  const links = document.querySelectorAll('.sidebar-link');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const id = entry.target.id;
+        const active = document.querySelector(`.sidebar-link[href="#${id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
