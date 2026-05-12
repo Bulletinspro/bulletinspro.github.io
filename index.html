@@ -553,13 +553,148 @@
   <p>© 2025 BulletinsPro</p>
 </footer>
 
-<script>
 
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-8MM04N2Z6M');
+<script>
+// ── DEMO INTERACTIVE ────────────────────────────────────────────────
+let demoCount = 3;
+
+function updateDemoCounter(){
+  const el = document.getElementById('demo-counter');
+  if(el) el.textContent = demoCount + (demoCount === 1 ? ' essai' : ' essais');
+}
+
+function selV(el){
+  document.querySelectorAll('.vopt').forEach(v => v.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function togP(el){
+  el.classList.toggle('on');
+}
+
+async function doGen(){
+  if(demoCount <= 0){
+    document.getElementById('demo-res').classList.remove('show');
+    document.getElementById('limit-msg').classList.add('show');
+    return;
+  }
+
+  const btn = document.getElementById('gen-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin">⟳</span> Génération…';
+
+  // Collect verdict
+  const verdictEl = document.querySelector('.vopt.on');
+  const verdict = verdictEl ? verdictEl.dataset.v : 'Bon trimestre';
+
+  // Collect pills
+  const pills = [];
+  document.querySelectorAll('.pp.on').forEach(p => pills.push(p.textContent.trim()));
+
+  const prompt = `Tu es un professeur de Français au collège. Génère une appréciation de bulletin scolaire courte (2-3 phrases, 150-200 caractères max) pour un(e) élève.
+Verdict global : "${verdict}"
+Observations cochées : ${pills.length ? pills.join(', ') : 'aucune observation particulière'}
+Règles : ton professionnel, 3e personne, sans prénom. Commence directement par le verdict. En français.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 200,
+        messages: [{role: 'user', content: prompt}]
+      })
+    });
+    const data = await response.json();
+    const text = data.content?.[0]?.text || 'Bon trimestre. Élève sérieux(se), les résultats sont satisfaisants. La participation pourrait être plus active.';
+    document.getElementById('res-text').textContent = text;
+    document.getElementById('demo-res').classList.add('show');
+    document.getElementById('limit-msg').classList.remove('show');
+    demoCount--;
+    updateDemoCounter();
+    if(typeof gtag !== 'undefined') gtag('event','demo_generated',{event_category:'engagement'});
+  } catch(e) {
+    // Fallback if API fails
+    const fallbacks = [
+      `${verdict}. Élève appliqué(e), les résultats témoignent d'un travail régulier. La participation gagne à être plus affirmée.`,
+      `${verdict}. Du sérieux dans l'ensemble et une progression encourageante. Il faudra maintenir ces efforts pour consolider les acquis.`,
+      `${verdict}. Les bases sont présentes, le travail fourni mérite d'être souligné. Un investissement plus régulier permettra de progresser davantage.`
+    ];
+    const text = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+    document.getElementById('res-text').textContent = text;
+    document.getElementById('demo-res').classList.add('show');
+    demoCount--;
+    updateDemoCounter();
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '✨ Générer l\'appréciation';
+  if(demoCount <= 0){
+    btn.style.opacity = '.4';
+    btn.style.cursor = 'not-allowed';
+  }
+}
+
+function doCopy(){
+  const text = document.getElementById('res-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copié !';
+    setTimeout(() => btn.textContent = orig, 1500);
+  });
+}
+
+// ── BILLING TOGGLE ───────────────────────────────────────────────────
+let isAnnual = true;
+
+function toggleBilling(){
+  isAnnual = !isAnnual;
+  const knob = document.getElementById('billing-knob');
+  const lblM = document.getElementById('lbl-monthly');
+  const lblA = document.getElementById('lbl-annual');
+
+  if(isAnnual){
+    knob.style.transform = 'translateX(24px)';
+    lblM.style.color = 'var(--muted)'; lblM.style.fontWeight = '400';
+    lblA.style.color = 'var(--purple)'; lblA.style.fontWeight = '600';
+    document.getElementById('std-price').innerHTML = '<sup>€</sup>24<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/an</span>';
+    document.getElementById('std-equiv').textContent = 'soit 2€/mois — moins qu\'un café ☕';
+    document.getElementById('std-period').innerHTML = '<strong style="color:var(--green)">800 générations</strong> par an';
+    document.getElementById('std-gen').textContent = '800 générations / an';
+    document.getElementById('std-btn').textContent = 'Choisir Standard annuel →';
+    document.getElementById('pro-price').innerHTML = '<sup>€</sup>39<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/an</span>';
+    document.getElementById('pro-equiv').textContent = 'soit 3,33€/mois — moins qu\'un verre en terrasse 🥂';
+    document.getElementById('pro-period').innerHTML = '<strong style="color:var(--green)">1500 générations</strong> par an';
+    document.getElementById('pro-gen').textContent = '1500 générations / an';
+    document.getElementById('pro-btn').textContent = 'Choisir Pro annuel →';
+  } else {
+    knob.style.transform = 'translateX(0)';
+    lblM.style.color = 'var(--purple)'; lblM.style.fontWeight = '600';
+    lblA.style.color = 'var(--muted)'; lblA.style.fontWeight = '400';
+    document.getElementById('std-price').innerHTML = '<sup>€</sup>2<span style="font-size:1.5rem">.49</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/mois</span>';
+    document.getElementById('std-equiv').textContent = '';
+    document.getElementById('std-period').innerHTML = '<strong style="color:var(--green)">67 générations</strong> par mois';
+    document.getElementById('std-gen').textContent = '67 générations / mois';
+    document.getElementById('std-btn').textContent = 'Choisir Standard mensuel →';
+    document.getElementById('pro-price').innerHTML = '<sup>€</sup>3<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/mois</span>';
+    document.getElementById('pro-equiv').textContent = '';
+    document.getElementById('pro-period').innerHTML = '<strong style="color:var(--green)">125 générations</strong> par mois';
+    document.getElementById('pro-gen').textContent = '125 générations / mois';
+    document.getElementById('pro-btn').textContent = 'Choisir Pro mensuel →';
+  }
+}
+
+function copyEmail(e){
+  e.preventDefault();
+  navigator.clipboard.writeText('bulletins.pro.app@gmail.com').then(()=>{
+    const el = document.getElementById('contact-link');
+    const orig = el.textContent;
+    el.textContent = '✓ Email copié !';
+    setTimeout(()=> el.textContent = orig, 2000);
+  });
+}
 </script>
-</head>
 </body>
 </html>
