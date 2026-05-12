@@ -202,6 +202,7 @@
     }
     @media(max-width:900px){
       .hero{grid-template-columns:1fr;}
+      .style-highlight-grid{grid-template-columns:1fr !important;gap:32px !important;}
       .hero-left{padding:60px 32px 48px;}
       .hero-left::after{display:none;}
       .hero-right{padding:40px 32px;}
@@ -247,7 +248,7 @@
   <div class="hero-left">
     <div class="hero-tag">Conçu par des enseignants du secondaire, collèges et lycées</div>
     <h1>Vos bulletins rédigés en <em>quelques minutes</em></h1>
-    <p class="hero-sub">Cochez les observations sur chaque élève, cliquez sur générer. BulletinsPro rédige des appréciations personnalisées grâce à l'IA — adaptées à chaque rôle. Collège et lycée.</p>
+    <p class="hero-sub">Cochez les observations sur chaque élève, cliquez sur générer. BulletinsPro rédige des appréciations personnalisées grâce à l'IA — dans <strong>votre style d'écriture</strong>, adaptées à chaque rôle.</p>
 
     <div class="for-tags">
       <span class="for-tag purple">🎓 Enseignants du secondaire</span>
@@ -398,8 +399,49 @@
       <div class="feat"><span class="feat-icon">📚</span><h3>15+ matières</h3><p>Observations propres à chaque discipline — du Français à la NSI en passant par l'EPS, avec les niveaux scolaires adaptés.</p></div>
       <div class="feat"><span class="feat-icon">⚡</span><h3>Génération en masse</h3><p>Toute une classe en un seul clic. 25 élèves en moins de 3 minutes.</p></div>
       <div class="feat"><span class="feat-icon">🎙️</span><h3>Profil vocal</h3><p>Décrivez oralement le profil d'un élève — l'IA coche automatiquement les observations correspondantes.</p></div>
-      <div class="feat"><span class="feat-icon">💾</span><h3>Google Drive</h3><p>Sauvegarde automatique sur votre Drive personnel. Accessible depuis n'importe quel appareil.</p></div>
+      <div class="feat" style="border:1.5px solid var(--purple-b);background:var(--purple-l)"><span class="feat-icon">✍️</span><h3>Votre style d'écriture</h3><p>Collez 3 exemples de vos anciennes appréciations — l'IA reproduit votre façon d'écrire. Le résultat sonne comme vous, pas comme une machine.</p></div>
       <div class="feat"><span class="feat-icon">📋</span><h3>Export PRONOTE</h3><p>Fichier prêt pour l'import PRONOTE client, ou copie directe depuis la vue complète.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- STYLE PERSO HIGHLIGHT -->
+<section class="section" style="background:linear-gradient(135deg,#1c1830,#2d1a5c);border-top:none">
+  <div class="section-inner style-highlight-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+    <div>
+      <div class="section-eyebrow" style="color:rgba(167,139,250,.8)">Fonctionnalité clé</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;color:#fff;margin-bottom:16px;letter-spacing:-.02em">L'IA apprend <em style="font-style:italic;color:#a78bfa">votre</em> style d'écriture</h2>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.75;margin-bottom:28px">Collez 3 à 5 de vos anciennes appréciations dans BulletinsPro. L'IA analyse vos tournures préférées, votre longueur de phrases, vos connecteurs habituels — et reproduit votre style à chaque génération.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px">
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-size:1.1rem;flex-shrink:0;margin-top:1px">✓</span>
+          <span style="font-size:.88rem;color:rgba(255,255,255,.85)">Le résultat sonne comme <strong style="color:#fff">vous</strong> — pas comme un outil générique</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-size:1.1rem;flex-shrink:0;margin-top:1px">✓</span>
+          <span style="font-size:.88rem;color:rgba(255,255,255,.85)">Vos collègues ne verront pas la différence avec vos appréciations habituelles</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-size:1.1rem;flex-shrink:0;margin-top:1px">✓</span>
+          <span style="font-size:.88rem;color:rgba(255,255,255,.85)">Actif pour toutes vos classes, PP et CPE — une seule configuration</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-size:1.1rem;flex-shrink:0;margin-top:1px">✓</span>
+          <span style="font-size:.88rem;color:rgba(255,255,255,.85)">L'IA ne copie pas vos exemples — elle s'inspire de votre façon d'écrire</span>
+        </div>
+      </div>
+      <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary">Essayer maintenant →</a>
+    </div>
+    <div style="background:rgba(255,255,255,.06);border:1px solid rgba(167,139,250,.3);border-radius:20px;padding:32px">
+      <div style="font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(167,139,250,.7);margin-bottom:16px">✍️ Mon style d'écriture</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:10px">Vos exemples de référence :</div>
+      <div style="background:rgba(0,0,0,.3);border-radius:10px;padding:16px;font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.7;font-style:italic;margin-bottom:16px">
+        "Bon trimestre. Élève sérieuse, les résultats sont là, mais la participation pourrait être plus régulière…"<br><br>
+        <span style="color:rgba(255,255,255,.3)">—</span><br><br>
+        "Trimestre fragile. Malgré des efforts ponctuels, le travail manque de régularité. Il lui faudra s'investir davantage…"
+      </div>
+      <div style="font-size:.75rem;color:rgba(167,139,250,.8);text-align:center">→ L'IA reproduit ce style pour toutes vos classes</div>
     </div>
   </div>
 </section>
