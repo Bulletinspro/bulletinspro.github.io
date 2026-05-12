@@ -3,374 +3,698 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Politique de confidentialité — BulletinsPro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>BulletinsPro — Vos appréciations scolaires en quelques minutes</title>
+  <meta name="description" content="BulletinsPro génère des appréciations de bulletins scolaires personnalisées grâce à l'IA. Pour les professeurs, professeurs principaux et CPE. RGPD compliant.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8MM04N2Z6M"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --purple: #6B2FD9;
-      --purple-light: #f3eeff;
-      --purple-border: #ddd5f5;
-      --ink: #1a1425;
-      --muted: #6b6880;
-      --bg: #fafaf9;
-      --white: #ffffff;
-      --border: #e8e6f0;
-      --green: #16a34a;
-      --green-light: #f0fdf4;
+      --purple:#6B2FD9; --purple-d:#5520b0; --purple-l:#f0eaff; --purple-b:#d8ccf5;
+      --ink:#1c1830; --ink2:#3d3858; --muted:#7c7899;
+      --cream:#fdf8f2; --cream2:#f7f1e8; --white:#ffffff;
+      --border:#e8e3f0; --green:#16a34a; --green-l:#f0fdf4; --accent:#e8a020;
+      --teal:#0d9488; --teal-l:#f0fdfa;
     }
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.7;
-      min-height: 100vh;
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(253,248,242,.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;padding:0 32px;gap:32px;}
+    .nav-logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--purple);text-decoration:none;}
+    .nav-logo span{color:var(--ink);}
+    .nav-links{display:flex;align-items:center;gap:4px;margin-left:auto;}
+    .nav-link{font-size:.85rem;color:var(--muted);text-decoration:none;padding:7px 14px;border-radius:8px;transition:all .15s;}
+    .nav-link:hover{color:var(--purple);background:var(--purple-l);}
+    .nav-cta{background:var(--purple);color:#fff;padding:8px 20px;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;transition:all .15s;box-shadow:0 2px 12px rgba(107,47,217,.3);}
+    .nav-cta:hover{background:var(--purple-d);transform:translateY(-1px);}
+
+    /* HERO */
+    .hero{min-height:100vh;padding:58px 0 0;display:grid;grid-template-columns:1fr 1fr;align-items:stretch;}
+    .hero-left{padding:80px 56px 80px 64px;display:flex;flex-direction:column;justify-content:center;background:var(--cream);position:relative;}
+    .hero-left::after{content:'';position:absolute;top:0;right:0;bottom:0;width:1px;background:var(--border);}
+    .hero-left::before{content:'';position:absolute;top:-80px;left:-80px;width:400px;height:400px;background:radial-gradient(circle,rgba(107,47,217,.06) 0%,transparent 70%);pointer-events:none;}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:24px;}
+    .hero-tag::before{content:'';width:24px;height:1.5px;background:var(--purple);}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3.2rem);font-weight:800;line-height:1.1;color:var(--ink);margin-bottom:20px;letter-spacing:-.02em;}
+    .hero h1 em{font-style:italic;color:var(--purple);position:relative;}
+    .hero h1 em::after{content:'';position:absolute;bottom:2px;left:0;right:0;height:3px;background:var(--accent);border-radius:2px;opacity:.6;}
+    .hero-sub{font-size:.95rem;color:var(--ink2);line-height:1.75;margin-bottom:28px;max-width:440px;}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:36px;}
+    .btn-primary{background:var(--purple);color:#fff;padding:13px 26px;border-radius:10px;font-size:.9rem;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(107,47,217,.3);transition:all .15s;}
+    .btn-primary:hover{background:var(--purple-d);transform:translateY(-2px);}
+    .btn-ghost{padding:13px 22px;border-radius:10px;font-size:.9rem;font-weight:500;text-decoration:none;border:1.5px solid var(--border);color:var(--ink2);transition:all .15s;}
+    .btn-ghost:hover{border-color:var(--purple);color:var(--purple);}
+
+    /* WHO IS IT FOR — pill tags */
+    .for-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px;}
+    .for-tag{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:.78rem;font-weight:500;border:1px solid;}
+    .for-tag.purple{background:var(--purple-l);border-color:var(--purple-b);color:var(--purple);}
+    .for-tag.teal{background:var(--teal-l);border-color:#99f6e4;color:var(--teal);}
+    .for-tag.amber{background:#fffbeb;border-color:#fde68a;color:#b45309;}
+
+    .hero-proof{display:flex;align-items:center;gap:20px;padding-top:28px;border-top:1px solid var(--border);}
+    .proof-item{text-align:center;}
+    .proof-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--purple);display:block;line-height:1;}
+    .proof-label{font-size:.72rem;color:var(--muted);margin-top:3px;}
+    .proof-sep{width:1px;height:36px;background:var(--border);flex-shrink:0;}
+    .rgpd-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-l);border:1px solid #bbf7d0;border-radius:6px;padding:5px 10px;font-size:.72rem;color:var(--green);font-weight:600;}
+
+    /* HERO RIGHT */
+    .hero-right{background:var(--cream2);display:flex;flex-direction:column;justify-content:center;padding:40px;position:relative;overflow:hidden;}
+    .hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(107,47,217,.06) 0%,transparent 60%);pointer-events:none;}
+    .demo-label{font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:12px;text-align:center;position:relative;}
+    .demo-card{background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 40px rgba(28,24,48,.1),0 2px 8px rgba(28,24,48,.05);overflow:hidden;}
+    .demo-titlebar{background:var(--cream2);border-bottom:1px solid var(--border);padding:10px 14px;display:flex;align-items:center;gap:10px;}
+    .dots{display:flex;gap:5px;}
+    .dot{width:10px;height:10px;border-radius:50%;}
+    .dot:nth-child(1){background:#ff5f57;}.dot:nth-child(2){background:#ffbd2e;}.dot:nth-child(3){background:#28ca41;}
+    .titlebar-name{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--muted);flex:1;text-align:center;}
+    .demo-tries{font-size:.7rem;font-weight:600;color:var(--purple);background:var(--purple-l);padding:2px 8px;border-radius:999px;}
+    .demo-inner{padding:16px;}
+    .demo-stu{display:flex;align-items:center;gap:10px;background:var(--cream);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:14px;}
+    .stu-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6B2FD9,#a855f7);color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+    .stu-info strong{font-size:.82rem;color:var(--ink);display:block;}
+    .stu-info span{font-size:.7rem;color:var(--muted);}
+    .verdict-row{margin-bottom:14px;}
+    .cat-label{font-family:'DM Mono',monospace;font-size:.57rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;display:block;}
+    .verdict-options{display:flex;flex-wrap:wrap;gap:5px;}
+    .vopt{padding:4px 10px;border-radius:999px;border:1.5px solid var(--border);font-size:.72rem;cursor:pointer;background:var(--white);color:var(--muted);transition:all .12s;user-select:none;}
+    .vopt.on{background:var(--purple);color:#fff;border-color:var(--purple);font-weight:600;}
+    .pills-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+    .pcat{background:var(--cream);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+    .pcat-hd{font-family:'DM Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);padding:6px 10px;border-bottom:1px solid var(--border);background:#f5f3fa;}
+    .pcat-pills{padding:7px 8px;display:flex;flex-wrap:wrap;gap:4px;}
+    .pp{padding:3px 8px;border-radius:999px;border:1.5px solid;font-size:.68rem;cursor:pointer;transition:all .12s;user-select:none;}
+    .pp.pos{border-color:#d1fae5;background:#f0fdf4;color:#4b7c5e;}
+    .pp.pos.on{background:#dcfce7;border-color:#16a34a;color:#15803d;font-weight:600;}
+    .pp.neu{border-color:#fed7aa;background:#fff8f0;color:#9b7b50;}
+    .pp.neu.on{background:#fef3c7;border-color:#d97706;color:#92400e;font-weight:600;}
+    .pp.neg{border-color:#fecaca;background:#fff5f5;color:#9b6060;}
+    .pp.neg.on{background:#fee2e2;border-color:#dc2626;color:#b91c1c;font-weight:600;}
+    .gen-btn{width:100%;padding:11px;background:var(--purple);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;transition:all .15s;margin-bottom:10px;}
+    .gen-btn:hover:not(:disabled){background:var(--purple-d);transform:translateY(-1px);}
+    .gen-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+    .demo-result{display:none;background:var(--purple-l);border:1.5px solid var(--purple-b);border-radius:8px;padding:12px;}
+    .demo-result.show{display:block;animation:slideUp .3s ease;}
+    .res-label{font-family:'DM Mono',monospace;font-size:.55rem;text-transform:uppercase;letter-spacing:.08em;color:var(--purple);margin-bottom:6px;display:block;}
+    .res-text{font-size:.8rem;color:var(--ink2);line-height:1.65;}
+    .res-actions{display:flex;align-items:center;gap:8px;margin-top:10px;}
+    .copy-btn{font-size:.72rem;padding:4px 12px;border-radius:6px;border:1px solid var(--purple-b);background:var(--white);color:var(--purple);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .12s;}
+    .copy-btn:hover{background:var(--purple);color:#fff;}
+    .try-app-link{margin-left:auto;font-size:.72rem;font-weight:600;color:var(--purple);text-decoration:none;}
+    .try-app-link:hover{text-decoration:underline;}
+    .limit-msg{display:none;text-align:center;padding:16px 12px;background:var(--purple-l);border-radius:8px;}
+    .limit-msg.show{display:block;}
+    .limit-msg p{font-size:.82rem;color:var(--purple);font-weight:500;margin-bottom:12px;}
+
+    /* SECTIONS */
+    .section{padding:96px 32px;}
+    .section-inner{max-width:1040px;margin:0 auto;}
+    .section-eyebrow{font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.12em;color:var(--purple);display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+    .section-eyebrow::after{content:'';flex:1;max-width:40px;height:1.5px;background:var(--purple-b);}
+    .section h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;color:var(--ink);margin-bottom:12px;letter-spacing:-.02em;}
+    .section-sub{font-size:.95rem;color:var(--muted);margin-bottom:48px;max-width:540px;line-height:1.7;}
+
+    /* WHO */
+    .who-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px;}
+    .who-card{border-radius:16px;padding:28px 24px;position:relative;overflow:hidden;}
+    .who-card.purple{background:var(--purple);color:#fff;}
+    .who-card.teal{background:#0f766e;color:#fff;}
+    .who-card.amber{background:#b45309;color:#fff;}
+    .who-icon{font-size:2rem;margin-bottom:16px;display:block;}
+    .who-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:8px;}
+    .who-desc{font-size:.85rem;line-height:1.6;opacity:.88;}
+    .who-tag{display:inline-flex;margin-top:14px;background:rgba(255,255,255,.15);border-radius:999px;padding:4px 12px;font-size:.72rem;font-weight:600;}
+
+    /* STEPS */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+    .step{padding:32px 28px;border-right:1px solid var(--border);background:var(--white);}
+    .step:last-child{border-right:none;}
+    .step-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:var(--purple-b);line-height:1;margin-bottom:16px;display:block;}
+    .step h3{font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:8px;}
+    .step p{font-size:.85rem;color:var(--muted);line-height:1.65;}
+
+    /* FEATURES */
+    .features-bg{background:var(--cream2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+    .feat{background:var(--white);padding:28px 24px;transition:background .15s;}
+    .feat:hover{background:var(--purple-l);}
+    .feat-icon{font-size:1.8rem;margin-bottom:14px;display:block;}
+    .feat h3{font-size:.92rem;font-weight:600;color:var(--ink);margin-bottom:6px;}
+    .feat p{font-size:.82rem;color:var(--muted);line-height:1.65;}
+
+    /* SOCIAL PROOF */
+    .proof-section{background:var(--white);border-top:1px solid var(--border);}
+    .quotes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .quote-card{background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:24px;}
+    .quote-text{font-size:.9rem;color:var(--ink2);line-height:1.7;margin-bottom:16px;font-style:italic;}
+    .quote-text::before{content:'"';}
+    .quote-text::after{content:'"';}
+    .quote-author{font-size:.78rem;color:var(--muted);font-weight:600;}
+    .quote-stars{color:#f59e0b;font-size:.9rem;margin-bottom:10px;}
+
+    /* PRICING */
+    .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .price-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:32px 26px;position:relative;}
+    .price-card.star{border-color:var(--purple);box-shadow:0 8px 40px rgba(107,47,217,.15);}
+    .star-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--purple);color:#fff;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 14px;border-radius:999px;white-space:nowrap;}
+    .price-name{font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:16px;display:block;}
+    .price-amount{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;color:var(--ink);line-height:1;margin-bottom:4px;}
+    .price-amount sup{font-size:1.1rem;vertical-align:top;margin-top:8px;}
+    .price-period{font-size:.78rem;color:var(--muted);margin-bottom:24px;}
+    .price-feats{list-style:none;margin-bottom:28px;}
+    .price-feats li{font-size:.83rem;color:var(--ink2);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:8px;}
+    .price-feats li:last-child{border-bottom:none;}
+    .price-feats li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+    .price-btn{display:block;width:100%;padding:12px;border-radius:10px;font-size:.88rem;font-weight:600;text-decoration:none;text-align:center;transition:all .15s;}
+    .price-btn.ghost{border:1.5px solid var(--border);color:var(--muted);}
+    .price-btn.ghost:hover{border-color:var(--purple);color:var(--purple);}
+    .price-btn.solid{background:var(--purple);color:#fff;box-shadow:0 4px 14px rgba(107,47,217,.25);}
+    .price-btn.solid:hover{background:var(--purple-d);transform:translateY(-1px);}
+
+    /* BANNER */
+    .banner{background:var(--ink);padding:80px 32px;text-align:center;position:relative;overflow:hidden;}
+    .banner::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(107,47,217,.3) 0%,transparent 60%);pointer-events:none;}
+    .banner-quote{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2.5vw,2rem);font-weight:700;font-style:italic;color:#fff;margin-bottom:12px;line-height:1.4;position:relative;}
+    .banner-attr{font-size:.83rem;color:rgba(255,255,255,.5);margin-bottom:36px;}
+    .banner .btn-primary{background:#fff;color:var(--purple);box-shadow:0 4px 24px rgba(0,0,0,.3);}
+    .banner .btn-primary:hover{background:var(--purple-l);}
+
+    /* FOOTER */
+    footer{background:var(--cream2);border-top:1px solid var(--border);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+    .footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--purple);text-decoration:none;}
+    .footer-logo span{color:var(--ink);}
+    .footer-links{display:flex;gap:20px;}
+    .footer-links a{font-size:.8rem;color:var(--muted);text-decoration:none;}
+    .footer-links a:hover{color:var(--purple);}
+    footer p{font-size:.75rem;color:var(--muted);}
+
+    @keyframes slideUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+    .spin{display:inline-block;animation:spin .7s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+
+    @media(max-width:1024px){
+      .who-grid{grid-template-columns:1fr 1fr;}
+      .quotes-grid{grid-template-columns:1fr 1fr;}
     }
-
-    header {
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .style-highlight-grid{grid-template-columns:1fr !important;gap:32px !important;}
+      .hero-left{padding:60px 32px 48px;}
+      .hero-left::after{display:none;}
+      .hero-right{padding:40px 32px;}
+      .steps{grid-template-columns:1fr;}
+      .step{border-right:none;border-bottom:1px solid var(--border);}
+      .step:last-child{border-bottom:none;}
+      .features-grid{grid-template-columns:1fr 1fr 1fr;}
+      .pricing-grid{grid-template-columns:1fr;}
+      .pills-grid{grid-template-columns:1fr;}
+      .who-grid{grid-template-columns:1fr;}
+      .quotes-grid{grid-template-columns:1fr;}
     }
-
-    .logo {
-      font-family: 'Lora', serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--purple);
-      text-decoration: none;
+    @media(max-width:600px){
+      nav{padding:0 16px;gap:16px;}
+      .nav-link{display:none;}
+      .hero-left{padding:48px 20px 40px;}
+      .hero-right{padding:32px 20px;}
+      .section{padding:64px 20px;}
+      .features-grid{grid-template-columns:1fr 1fr;}
+      footer{flex-direction:column;align-items:flex-start;}
     }
-
-    .logo span {
-      color: var(--ink);
-      font-weight: 400;
-    }
-
-    .back-link {
-      margin-left: auto;
-      font-size: .85rem;
-      color: var(--muted);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: color .15s;
-    }
-    .back-link:hover { color: var(--purple); }
-
-    main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
-    }
-
-    .hero {
-      margin-bottom: 48px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--purple-light);
-      color: var(--purple);
-      border: 1px solid var(--purple-border);
-      border-radius: 999px;
-      padding: 4px 12px;
-      font-size: .75rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    h1 {
-      font-family: 'Lora', serif;
-      font-size: 2.2rem;
-      font-weight: 600;
-      line-height: 1.25;
-      margin-bottom: 12px;
-      color: var(--ink);
-    }
-
-    .subtitle {
-      color: var(--muted);
-      font-size: .95rem;
-    }
-
-    .rgpd-highlight {
-      background: var(--green-light);
-      border: 1.5px solid #bbf7d0;
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 40px;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-
-    .rgpd-highlight .icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
-
-    .rgpd-highlight strong {
-      display: block;
-      color: var(--green);
-      font-size: .9rem;
-      margin-bottom: 4px;
-    }
-
-    .rgpd-highlight p {
-      color: #166534;
-      font-size: .875rem;
-      line-height: 1.6;
-    }
-
-    section {
-      margin-bottom: 40px;
-    }
-
-    h2 {
-      font-family: 'Lora', serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    h2 .num {
-      background: var(--purple);
-      color: #fff;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .7rem;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      flex-shrink: 0;
-    }
-
-    p { margin-bottom: 12px; font-size: .9rem; color: #2d2a3e; }
-    p:last-child { margin-bottom: 0; }
-
-    ul {
-      list-style: none;
-      margin-bottom: 12px;
-    }
-
-    ul li {
-      font-size: .9rem;
-      color: #2d2a3e;
-      padding: 5px 0 5px 22px;
-      position: relative;
-    }
-
-    ul li::before {
-      content: '→';
-      position: absolute;
-      left: 0;
-      color: var(--purple);
-      font-size: .8rem;
-    }
-
-    .card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin-bottom: 12px;
-    }
-
-    .card-title {
-      font-weight: 600;
-      font-size: .875rem;
-      color: var(--ink);
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .card p { font-size: .85rem; color: var(--muted); margin-bottom: 0; }
-
-    .no-data {
-      background: var(--purple-light);
-      border: 1px solid var(--purple-border);
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: .85rem;
-      color: var(--purple);
-      font-weight: 500;
-      margin-bottom: 12px;
-    }
-
-    .contact-box {
-      background: var(--white);
-      border: 1.5px solid var(--purple-border);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .contact-box p { color: var(--muted); font-size: .875rem; margin-bottom: 8px; }
-
-    .contact-box a {
-      color: var(--purple);
-      font-weight: 600;
-      text-decoration: none;
-      font-size: .9rem;
-    }
-    .contact-box a:hover { text-decoration: underline; }
-
-    .updated {
-      font-size: .78rem;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 40px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-    }
-
-    a { color: var(--purple); }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 1.6rem; }
-      main { padding: 32px 16px 60px; }
+    @media(max-width:480px){
+      .features-grid{grid-template-columns:1fr;}
+      .hero-proof{flex-wrap:wrap;gap:16px;}
     }
   </style>
 </head>
 <body>
 
-<header>
-  <a href="https://bulletinspro.github.io/bulletinspro" class="logo">Bulletins<span>Pro</span></a>
-  <a href="https://bulletinspro.github.io/bulletinspro" class="back-link">← Retour à l'application</a>
-</header>
+<nav>
+  <a href="#" class="nav-logo">Bulletins<span>Pro</span></a>
+  <div class="nav-links">
+    <a href="#pour-qui" class="nav-link">Pour qui</a>
+    <a href="#comment" class="nav-link">Comment ça marche</a>
+    <a href="#tarifs" class="nav-link">Tarifs</a>
+    <a href="https://bulletinspro.github.io/guide.html" class="nav-link" target="_blank">Guide</a>
+    <a href="https://bulletinspro.github.io/bulletinspro" class="nav-cta">Essayer gratuitement →</a>
+  </div>
+</nav>
 
-<main>
-  <div class="hero">
-    <div class="badge">🔒 Confidentialité</div>
-    <h1>Politique de confidentialité</h1>
-    <p class="subtitle">Dernière mise à jour : avril 2025</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Conçu par des enseignants du secondaire, collèges et lycées</div>
+    <h1>Vos bulletins rédigés en <em>quelques minutes</em></h1>
+    <p class="hero-sub">Cochez les observations sur chaque élève, cliquez sur générer. BulletinsPro rédige des appréciations personnalisées grâce à l'IA — dans <strong>votre style d'écriture</strong>, adaptées à chaque rôle.</p>
+
+    <div class="for-tags">
+      <span class="for-tag purple">🎓 Enseignants du secondaire</span>
+      <span class="for-tag teal">👨‍🏫 Professeurs principaux</span>
+      <span class="for-tag amber">📋 CPE</span>
+    </div>
+
+    <div class="hero-actions">
+      <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary" onclick="gtag('event','cta_click',{event_category:'conversion',event_label:'hero_cta'})">Commencer — c'est gratuit →</a>
+      <a href="#comment" class="btn-ghost">Comment ça marche</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-item">
+        <span class="proof-num">25</span>
+        <div class="proof-label">appréciations offertes</div>
+      </div>
+      <div class="proof-sep"></div>
+      <div class="proof-item">
+        <span class="proof-num">−60%</span>
+        <div class="proof-label">jusqu'à 60% de temps gagné</div>
+      </div>
+      <div class="proof-sep"></div>
+      <div class="proof-item">
+        <div class="rgpd-badge">🔒 RGPD</div>
+        <div class="proof-label" style="margin-top:6px">aucun prénom transmis</div>
+      </div>
+    </div>
   </div>
 
-  <div class="rgpd-highlight">
-    <div class="icon">✅</div>
+  <div class="hero-right">
+    <div class="demo-label">✦ Démo interactive — essayez maintenant</div>
+    <div class="demo-card">
+      <div class="demo-titlebar">
+        <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="titlebar-name">BulletinsPro</div>
+        <div class="demo-tries" id="demo-counter">3 essais</div>
+      </div>
+      <div class="demo-inner">
+        <div class="demo-stu">
+          <div class="stu-av">A</div>
+          <div class="stu-info"><strong>Alex Martin</strong><span>2nde · Français · Trimestre 2</span></div>
+        </div>
+        <div class="verdict-row">
+          <span class="cat-label">Bilan global</span>
+          <div class="verdict-options">
+            <div class="vopt" data-v="Excellent trimestre" onclick="selV(this)">🌟 Excellent</div>
+            <div class="vopt on" data-v="Bon trimestre" onclick="selV(this)">✅ Bon</div>
+            <div class="vopt" data-v="Trimestre satisfaisant" onclick="selV(this)">🟡 Satisfaisant</div>
+            <div class="vopt" data-v="Trimestre fragile" onclick="selV(this)">🟠 Fragile</div>
+            <div class="vopt" data-v="Trimestre insuffisant" onclick="selV(this)">❌ Insuffisant</div>
+          </div>
+        </div>
+        <div class="pills-grid">
+          <div class="pcat"><div class="pcat-hd">Résultats</div><div class="pcat-pills">
+            <span class="pp pos on" onclick="togP(this)">Bons résultats</span>
+            <span class="pp pos" onclick="togP(this)">Progression</span>
+            <span class="pp neu" onclick="togP(this)">Fragiles</span>
+            <span class="pp neg" onclick="togP(this)">Insuffisant</span>
+          </div></div>
+          <div class="pcat"><div class="pcat-hd">Travail</div><div class="pcat-pills">
+            <span class="pp pos on" onclick="togP(this)">Travail sérieux</span>
+            <span class="pp pos" onclick="togP(this)">Régulier</span>
+            <span class="pp neu" onclick="togP(this)">Irrégulier</span>
+            <span class="pp neg" onclick="togP(this)">Insuffisant</span>
+          </div></div>
+          <div class="pcat"><div class="pcat-hd">Comportement</div><div class="pcat-pills">
+            <span class="pp pos" onclick="togP(this)">Exemplaire</span>
+            <span class="pp neu on" onclick="togP(this)">Bavarde parfois</span>
+            <span class="pp neu" onclick="togP(this)">Concentration</span>
+            <span class="pp neg" onclick="togP(this)">Perturbateur</span>
+          </div></div>
+          <div class="pcat"><div class="pcat-hd">Conseils</div><div class="pcat-pills">
+            <span class="pp pos" onclick="togP(this)">Félicitations</span>
+            <span class="pp pos" onclick="togP(this)">Encouragements</span>
+            <span class="pp neu on" onclick="togP(this)">Concentration</span>
+            <span class="pp neg" onclick="togP(this)">S'investir</span>
+          </div></div>
+        </div>
+        <button class="gen-btn" id="gen-btn" onclick="doGen()">✨ Générer l'appréciation</button>
+        <div class="demo-result" id="demo-res">
+          <span class="res-label">Appréciation générée</span>
+          <div class="res-text" id="res-text"></div>
+          <div class="res-actions">
+            <button class="copy-btn" onclick="doCopy()">📋 Copier</button>
+            <a href="https://bulletinspro.github.io/bulletinspro" class="try-app-link">Utiliser pour ma classe →</a>
+          </div>
+        </div>
+        <div class="limit-msg" id="limit-msg">
+          <p>🎉 Vous avez utilisé les 3 essais de démo !</p>
+          <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary" style="display:inline-flex;font-size:.85rem">Commencer gratuitement — 25 appréciations →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POUR QUI -->
+<section class="section" id="pour-qui" style="background:var(--white);border-top:1px solid var(--border)">
+  <div class="section-inner">
+    <div class="section-eyebrow">Pour qui</div>
+    <h2>Un outil pour chaque rôle</h2>
+    <p class="section-sub">Chaque section de BulletinsPro est adaptée au rôle et aux attentes de chaque acteur du bulletin.</p>
+    <div class="who-grid">
+      <div class="who-card purple">
+        <span class="who-icon">🎓</span>
+        <div class="who-title">Enseignants du secondaire</div>
+        <div class="who-desc">Collège et lycée — 15+ matières avec des observations propres à chaque discipline. Pills adaptées par niveau, export PRONOTE, génération en masse pour toute une classe.</div>
+        <span class="who-tag">Français · Maths · Langues · SVT · EPS…</span>
+      </div>
+      <div class="who-card teal">
+        <span class="who-icon">👨‍🏫</span>
+        <div class="who-title">Professeurs Principaux</div>
+        <div class="who-desc">Module PP dédié — bilan global de l'équipe pédagogique, compétences transversales, orientation, vie scolaire. Une synthèse cohérente et professionnelle.</div>
+        <span class="who-tag">Bilan global · Orientation · Compétences</span>
+      </div>
+      <div class="who-card amber">
+        <span class="who-icon">📋</span>
+        <div class="who-title">CPE</div>
+        <div class="who-desc">Section CPE entièrement séparée — assiduité, comportement, suivi, accompagnement. Jamais de résultats scolaires. Court, factuel, professionnel.</div>
+        <span class="who-tag">Assiduité · Comportement · Suivi</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="section" id="comment" style="background:var(--cream2);border-top:1px solid var(--border)">
+  <div class="section-inner">
+    <div class="section-eyebrow">Comment ça marche</div>
+    <h2>Trois étapes, une classe entière</h2>
+    <p class="section-sub">Pas de formation requise. Si vous savez cocher des cases, vous savez utiliser BulletinsPro.</p>
+    <div class="steps">
+      <div class="step"><span class="step-num">01</span><h3>Créez votre classe</h3><p>Ajoutez vos élèves, choisissez la matière, l'année et la période. Prêt en 2 minutes.</p></div>
+      <div class="step"><span class="step-num">02</span><h3>Cochez les observations</h3><p>Pour chaque élève, cochez les points correspondants : résultats, travail, comportement, conseils. 1 à 2 minutes par élève.</p></div>
+      <div class="step"><span class="step-num">03</span><h3>Générez en un clic</h3><p>Lancez la génération pour toute la classe. Relisez, ajustez si besoin, copiez dans PRONOTE.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features-bg">
+  <div class="section-inner">
+    <div class="section-eyebrow">Fonctionnalités</div>
+    <h2>Tout ce dont vous avez besoin</h2>
+    <p class="section-sub">Conçu pour tous les acteurs du bulletin — professeurs, professeurs principaux et CPE.</p>
+    <div class="features-grid">
+      <div class="feat"><span class="feat-icon">🔒</span><h3>100% RGPD</h3><p>Les prénoms sont automatiquement remplacés avant envoi à l'IA. Aucune donnée nominative ne quitte votre appareil.</p></div>
+      <div class="feat"><span class="feat-icon">📚</span><h3>15+ matières</h3><p>Observations propres à chaque discipline — du Français à la NSI en passant par l'EPS, avec les niveaux scolaires adaptés.</p></div>
+      <div class="feat"><span class="feat-icon">⚡</span><h3>Génération en masse</h3><p>Toute une classe en un seul clic. 25 élèves en moins de 3 minutes.</p></div>
+      <div class="feat"><span class="feat-icon">🎙️</span><h3>Profil vocal</h3><p>Décrivez oralement le profil d'un élève — l'IA coche automatiquement les observations correspondantes.</p></div>
+      <div class="feat" style="border:1.5px solid var(--purple-b);background:var(--purple-l)"><span class="feat-icon">✍️</span><h3>Votre style d'écriture</h3><p>Collez 3 exemples de vos anciennes appréciations — l'IA reproduit votre façon d'écrire. Le résultat sonne comme vous, pas comme une machine.</p></div>
+      <div class="feat"><span class="feat-icon">📋</span><h3>Export PRONOTE</h3><p>Fichier prêt pour l'import PRONOTE client, ou copie directe depuis la vue complète.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- STYLE PERSO HIGHLIGHT -->
+<section class="section" style="background:linear-gradient(135deg,#1c1830,#2d1a5c);border-top:none">
+  <div class="section-inner style-highlight-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
     <div>
-      <strong>Conformité RGPD — Protection des élèves garantie</strong>
-      <p>BulletinsPro ne transmet jamais les vrais prénoms des élèves à l'IA. Avant chaque génération, les prénoms sont automatiquement remplacés par un prénom fictif. Aucune donnée nominative d'élève ne quitte votre appareil.</p>
+      <div class="section-eyebrow" style="color:rgba(167,139,250,.8)">Fonctionnalité clé</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.7rem,3vw,2.4rem);font-weight:700;color:#fff;margin-bottom:16px;letter-spacing:-.02em">L'IA apprend <em style="font-style:italic;color:#a78bfa">votre</em> style d'écriture</h2>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.7);line-height:1.75;margin-bottom:28px">Collez 3 à 5 de vos anciennes appréciations dans BulletinsPro. L'IA analyse vos tournures préférées, votre longueur de phrases, vos connecteurs habituels — et reproduit votre style à chaque génération.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px">
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-size:1.1rem;flex-shrink:0;margin-top:1px">✓</span>
+          <span style="font-size:.88rem;color:rgba(255,255,255,.85)">Le résultat sonne comme <strong style="color:#fff">vous</strong> — pas comme un outil générique</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-size:1.1rem;flex-shrink:0;margin-top:1px">✓</span>
+          <span style="font-size:.88rem;color:rgba(255,255,255,.85)">Vos collègues ne verront pas la différence avec vos appréciations habituelles</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-size:1.1rem;flex-shrink:0;margin-top:1px">✓</span>
+          <span style="font-size:.88rem;color:rgba(255,255,255,.85)">Actif pour toutes vos classes, PP et CPE — une seule configuration</span>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <span style="font-size:1.1rem;flex-shrink:0;margin-top:1px">✓</span>
+          <span style="font-size:.88rem;color:rgba(255,255,255,.85)">L'IA ne copie pas vos exemples — elle s'inspire de votre façon d'écrire</span>
+        </div>
+      </div>
+      <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary">Essayer maintenant →</a>
+    </div>
+    <div style="background:rgba(255,255,255,.06);border:1px solid rgba(167,139,250,.3);border-radius:20px;padding:32px">
+      <div style="font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(167,139,250,.7);margin-bottom:16px">✍️ Mon style d'écriture</div>
+      <div style="font-size:.78rem;color:rgba(255,255,255,.5);margin-bottom:10px">Vos exemples de référence :</div>
+      <div style="background:rgba(0,0,0,.3);border-radius:10px;padding:16px;font-size:.8rem;color:rgba(255,255,255,.7);line-height:1.7;font-style:italic;margin-bottom:16px">
+        "Bon trimestre. Élève sérieuse, les résultats sont là, mais la participation pourrait être plus régulière…"<br><br>
+        <span style="color:rgba(255,255,255,.3)">—</span><br><br>
+        "Trimestre fragile. Malgré des efforts ponctuels, le travail manque de régularité. Il lui faudra s'investir davantage…"
+      </div>
+      <div style="font-size:.75rem;color:rgba(167,139,250,.8);text-align:center">→ L'IA reproduit ce style pour toutes vos classes</div>
     </div>
   </div>
+</section>
 
-  <section>
-    <h2><span class="num">1</span> Qui sommes-nous ?</h2>
-    <p>BulletinsPro est un outil d'aide à la rédaction d'appréciations scolaires, développé et exploité par un enseignant indépendant. L'application est accessible à l'adresse <a href="https://bulletinspro.github.io/bulletinspro">bulletinspro.github.io/bulletinspro</a>.</p>
-    <p>Contact : <a href="mailto:bulletins.pro.app@gmail.com">bulletins.pro.app@gmail.com</a></p>
-  </section>
-
-  <section>
-    <h2><span class="num">2</span> Données collectées</h2>
-
-    <div class="card">
-      <div class="card-title">📊 Données de votre compte Google</div>
-      <p>Si vous activez la synchronisation Google Drive, BulletinsPro accède à votre compte Google uniquement pour créer et lire un fichier de sauvegarde dans votre Drive personnel. Aucune autre donnée Google n'est lue ou modifiée.</p>
+<!-- SOCIAL PROOF -->
+<section class="section proof-section">
+  <div class="section-inner">
+    <div class="section-eyebrow">Témoignages</div>
+    <h2>Ce que disent les enseignants</h2>
+    <p class="section-sub">BulletinsPro est conçu par un enseignant, testé par des enseignants.</p>
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <div class="quote-stars">★★★★★</div>
+        <div class="quote-text">Ma classe de 22 élèves en 45 minutes au lieu d'une heure trente. Le gain de temps est réel.</div>
+        <div class="quote-author">Alex — Professeure d'anglais, lycée</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-stars">★★★★★</div>
+        <div class="quote-text">Le système de cases à cocher change tout. Je ne cherche plus mes mots, je sélectionne et je génère.</div>
+        <div class="quote-author">Enseignant de mathématiques, collège</div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-stars">★★★★★</div>
+        <div class="quote-text">Enfin un outil RGPD qui ne demande pas les prénoms des élèves. Je l'utilise sereinement.</div>
+        <div class="quote-author">Professeur principal, collège REP</div>
+      </div>
     </div>
-
-    <div class="card">
-      <div class="card-title">💾 Données stockées localement</div>
-      <p>Vos classes, listes d'élèves, observations pédagogiques sélectionnées et appréciations générées sont stockées dans le <strong>localStorage de votre navigateur</strong> et optionnellement dans votre Google Drive. Ces données ne transitent pas par nos serveurs.</p>
-    </div>
-
-    <div class="card">
-      <div class="card-title">🔢 Compteur d'utilisations</div>
-      <p>Un compteur du nombre d'appréciations générées est stocké localement pour gérer les limites de votre abonnement. Ce compteur ne contient aucune donnée personnelle.</p>
-    </div>
-
-    <div class="no-data">
-      ⛔ BulletinsPro ne collecte pas d'adresse e-mail, ne crée pas de compte utilisateur, et ne stocke aucune donnée sur ses propres serveurs.
-    </div>
-  </section>
-
-  <section>
-    <h2><span class="num">3</span> Protection des données des élèves</h2>
-    <p>BulletinsPro a été conçu dans le strict respect du RGPD concernant les données des mineurs :</p>
-    <ul>
-      <li>Les prénoms des élèves sont <strong>automatiquement remplacés</strong> par un prénom fictif avant tout envoi à l'API d'intelligence artificielle</li>
-      <li>Le vrai prénom n'est réintégré dans l'appréciation <strong>qu'après réception</strong> de la réponse, côté client uniquement</li>
-      <li>Aucun nom, prénom, numéro ou information identificatrice d'élève n'est transmis à un tiers</li>
-      <li>Les données saisies restent sur votre appareil et/ou dans votre Google Drive personnel</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2><span class="num">4</span> Intelligence artificielle — OpenRouter</h2>
-    <p>BulletinsPro utilise l'API <a href="https://openrouter.ai" target="_blank" rel="noopener">OpenRouter</a> pour générer les appréciations, via le modèle Claude Sonnet d'Anthropic.</p>
-    <ul>
-      <li>Seules les <strong>observations pédagogiques anonymisées</strong> (pills sélectionnées) sont transmises à l'API</li>
-      <li>Aucun prénom réel, nom de famille ou donnée identificatrice n'est envoyé</li>
-      <li>OpenRouter est soumis à sa propre politique de confidentialité disponible sur <a href="https://openrouter.ai/privacy" target="_blank" rel="noopener">openrouter.ai/privacy</a></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2><span class="num">5</span> Google Drive — Synchronisation</h2>
-    <p>La synchronisation Google Drive est <strong>entièrement optionnelle</strong>. Si vous l'activez :</p>
-    <ul>
-      <li>BulletinsPro crée un fichier <code>bulletinspro_data.json</code> dans votre Drive</li>
-      <li>Ce fichier contient vos classes, listes d'élèves (prénoms uniquement si renseignés) et appréciations</li>
-      <li>Ce fichier est <strong>privé</strong> — seul vous y avez accès</li>
-      <li>Vous pouvez le supprimer à tout moment depuis votre Google Drive</li>
-      <li>BulletinsPro n'accède à aucun autre fichier de votre Drive</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2><span class="num">6</span> Abonnement et paiement</h2>
-    <p>Les paiements sont traités par <strong>Stripe</strong>, un prestataire de paiement certifié PCI-DSS. BulletinsPro ne stocke jamais vos informations bancaires. La politique de confidentialité de Stripe est disponible sur <a href="https://stripe.com/fr/privacy" target="_blank" rel="noopener">stripe.com/fr/privacy</a>.</p>
-  </section>
-
-  <section>
-    <h2><span class="num">7</span> Vos droits</h2>
-    <p>Conformément au RGPD, vous disposez des droits suivants :</p>
-    <ul>
-      <li><strong>Droit d'accès</strong> — vos données sont accessibles directement dans l'application</li>
-      <li><strong>Droit de suppression</strong> — effacez vos données via le bouton "Réinitialiser" dans l'app, ou supprimez le fichier Drive</li>
-      <li><strong>Droit à la portabilité</strong> — exportez vos données au format JSON via "Exporter les données"</li>
-      <li><strong>Droit d'opposition</strong> — désactivez la synchronisation Drive à tout moment</li>
-    </ul>
-    <p>Pour toute demande relative à vos données, contactez-nous à <a href="mailto:bulletins.pro.app@gmail.com">bulletins.pro.app@gmail.com</a>.</p>
-  </section>
-
-  <section>
-    <h2><span class="num">8</span> Cookies et traceurs</h2>
-    <p>BulletinsPro n'utilise <strong>aucun cookie de tracking</strong>, aucune régie publicitaire, et aucun outil d'analyse tiers. Le seul stockage utilisé est le <code>localStorage</code> de votre navigateur, nécessaire au fonctionnement de l'application.</p>
-  </section>
-
-  <section>
-    <h2><span class="num">9</span> Modifications</h2>
-    <p>Cette politique peut être mise à jour. En cas de modification substantielle, une notification sera affichée dans l'application. La date de dernière mise à jour est indiquée en haut de cette page.</p>
-  </section>
-
-  <div class="contact-box">
-    <p>Une question sur vos données ?</p>
-    <a href="mailto:bulletins.pro.app@gmail.com">bulletins.pro.app@gmail.com</a>
   </div>
+</section>
 
-  <p class="updated">© 2025 BulletinsPro — Tous droits réservés</p>
-</main>
+<!-- PRICING -->
+<section class="section" id="tarifs" style="background:var(--cream2);border-top:1px solid var(--border)">
+  <div class="section-inner">
+    <div class="section-eyebrow">Tarifs</div>
+    <h2>Simple et transparent</h2>
+    <p class="section-sub">Commencez gratuitement. Abonnez-vous quand vous êtes convaincu.</p>
 
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:40px">
+      <span id="lbl-monthly" style="font-size:.88rem;color:var(--muted);transition:color .2s">Mensuel</span>
+      <div onclick="toggleBilling()" style="width:52px;height:28px;background:var(--purple);border-radius:999px;cursor:pointer;position:relative;transition:background .2s" id="billing-toggle">
+        <div id="billing-knob" style="position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:transform .2s;transform:translateX(24px)"></div>
+      </div>
+      <span id="lbl-annual" style="font-size:.88rem;color:var(--purple);font-weight:600">
+        Annuel
+        <span style="background:var(--accent);color:#fff;font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-left:6px">−2 mois offerts</span>
+      </span>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <span class="price-name">Découverte</span>
+        <div class="price-amount"><sup>€</sup>0</div>
+        <div class="price-period">pour toujours</div>
+        <ul class="price-feats">
+          <li>25 appréciations offertes</li>
+          <li>Toutes matières + PP + CPE</li>
+          <li>Sans inscription</li>
+          <li>Conforme RGPD</li>
+        </ul>
+        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn ghost">Commencer →</a>
+      </div>
+      <div class="price-card star">
+        <div class="star-badge">⭐ Le plus populaire</div>
+        <span class="price-name">Standard</span>
+        <div class="price-amount" id="std-price"><sup>€</sup>24<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:400">/an</span></div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:2px;margin-bottom:4px" id="std-equiv">soit 2€/mois — moins qu'un café ☕</div>
+        <div class="price-period" id="std-period"><strong style="color:var(--green)">800 générations</strong> par an</div>
+        <ul class="price-feats">
+          <li id="std-gen">800 générations / an</li>
+          <li><strong>Idéal jusqu'à ~9 classes</strong></li>
+          <li>Synchronisation Drive</li>
+          <li>Toutes matières + PP + CPE</li>
+          <li>Export PRONOTE</li>
+          <li>Génération en masse</li>
+        </ul>
+        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn solid" id="std-btn" onclick="gtag('event','pricing_click',{event_category:'conversion',event_label:'standard_plan'})">Choisir Standard annuel →</a>
+      </div>
+      <div class="price-card">
+        <span class="price-name">Pro</span>
+        <div class="price-amount" id="pro-price"><sup>€</sup>39<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:400">/an</span></div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:2px;margin-bottom:4px" id="pro-equiv">soit 3,33€/mois — moins qu'un verre en terrasse 🥂</div>
+        <div class="price-period" id="pro-period"><strong style="color:var(--green)">1500 générations</strong> par an</div>
+        <ul class="price-feats">
+          <li id="pro-gen">1500 générations / an</li>
+          <li><strong>Idéal jusqu'à ~18 classes</strong></li>
+          <li>Tout Standard inclus</li>
+          <li>Accès prioritaire aux nouveautés</li>
+        </ul>
+        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn ghost" id="pro-btn" onclick="gtag('event','pricing_click',{event_category:'conversion',event_label:'pro_plan'})">Choisir Pro annuel →</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:1.05rem;color:var(--ink2);font-family:'Playfair Display',serif;font-style:italic;font-weight:700">Moins de temps sur les bulletins, plus de temps pour vous.</p>
+  </div>
+</section>
+
+<section class="banner">
+  <p class="banner-quote">"Ma classe de 22 élèves en 45 minutes au lieu d'une heure trente."</p>
+  <p class="banner-attr">— Alex, professeure d'anglais, utilisatrice BulletinsPro</p>
+  <a href="https://bulletinspro.github.io/bulletinspro" class="btn-primary" onclick="gtag('event','cta_click',{event_category:'conversion',event_label:'banner_cta'})">Commencer gratuitement — 25 appréciations offertes →</a>
+</section>
+
+<footer>
+  <a href="#" class="footer-logo">Bulletins<span>Pro</span></a>
+  <div class="footer-links">
+    <a href="https://bulletinspro.github.io/guide.html" target="_blank">Guide</a>
+    <a href="https://bulletinspro.github.io/privacy.html" target="_blank">Politique de confidentialité</a>
+    <a href="mailto:bulletins.pro.app@gmail.com" id="contact-link" onclick="copyEmail(event)">Contact</a>
+  </div>
+  <p>© 2025 BulletinsPro</p>
+</footer>
+
+
+<script>
+// ── DEMO INTERACTIVE ────────────────────────────────────────────────
+let demoCount = 3;
+
+function updateDemoCounter(){
+  const el = document.getElementById('demo-counter');
+  if(el) el.textContent = demoCount + (demoCount === 1 ? ' essai' : ' essais');
+}
+
+function selV(el){
+  document.querySelectorAll('.vopt').forEach(v => v.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function togP(el){
+  el.classList.toggle('on');
+}
+
+async function doGen(){
+  if(demoCount <= 0){
+    document.getElementById('demo-res').classList.remove('show');
+    document.getElementById('limit-msg').classList.add('show');
+    return;
+  }
+
+  const btn = document.getElementById('gen-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin">⟳</span> Génération…';
+
+  // Collect verdict
+  const verdictEl = document.querySelector('.vopt.on');
+  const verdict = verdictEl ? verdictEl.dataset.v : 'Bon trimestre';
+
+  // Collect pills
+  const pills = [];
+  document.querySelectorAll('.pp.on').forEach(p => pills.push(p.textContent.trim()));
+
+  const prompt = `Tu es un professeur de Français au collège. Génère une appréciation de bulletin scolaire courte (2-3 phrases, 150-200 caractères max) pour un(e) élève.
+Verdict global : "${verdict}"
+Observations cochées : ${pills.length ? pills.join(', ') : 'aucune observation particulière'}
+Règles : ton professionnel, 3e personne, sans prénom. Commence directement par le verdict. En français.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 200,
+        messages: [{role: 'user', content: prompt}]
+      })
+    });
+    const data = await response.json();
+    const text = data.content?.[0]?.text || 'Bon trimestre. Élève sérieux(se), les résultats sont satisfaisants. La participation pourrait être plus active.';
+    document.getElementById('res-text').textContent = text;
+    document.getElementById('demo-res').classList.add('show');
+    document.getElementById('limit-msg').classList.remove('show');
+    demoCount--;
+    updateDemoCounter();
+    if(typeof gtag !== 'undefined') gtag('event','demo_generated',{event_category:'engagement'});
+  } catch(e) {
+    // Fallback if API fails
+    const fallbacks = [
+      `${verdict}. Élève appliqué(e), les résultats témoignent d'un travail régulier. La participation gagne à être plus affirmée.`,
+      `${verdict}. Du sérieux dans l'ensemble et une progression encourageante. Il faudra maintenir ces efforts pour consolider les acquis.`,
+      `${verdict}. Les bases sont présentes, le travail fourni mérite d'être souligné. Un investissement plus régulier permettra de progresser davantage.`
+    ];
+    const text = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+    document.getElementById('res-text').textContent = text;
+    document.getElementById('demo-res').classList.add('show');
+    demoCount--;
+    updateDemoCounter();
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '✨ Générer l\'appréciation';
+  if(demoCount <= 0){
+    btn.style.opacity = '.4';
+    btn.style.cursor = 'not-allowed';
+  }
+}
+
+function doCopy(){
+  const text = document.getElementById('res-text').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copié !';
+    setTimeout(() => btn.textContent = orig, 1500);
+  });
+}
+
+// ── BILLING TOGGLE ───────────────────────────────────────────────────
+let isAnnual = true;
+
+function toggleBilling(){
+  isAnnual = !isAnnual;
+  const knob = document.getElementById('billing-knob');
+  const lblM = document.getElementById('lbl-monthly');
+  const lblA = document.getElementById('lbl-annual');
+
+  if(isAnnual){
+    knob.style.transform = 'translateX(24px)';
+    lblM.style.color = 'var(--muted)'; lblM.style.fontWeight = '400';
+    lblA.style.color = 'var(--purple)'; lblA.style.fontWeight = '600';
+    document.getElementById('std-price').innerHTML = '<sup>€</sup>24<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/an</span>';
+    document.getElementById('std-equiv').textContent = 'soit 2€/mois — moins qu\'un café ☕';
+    document.getElementById('std-period').innerHTML = '<strong style="color:var(--green)">800 générations</strong> par an';
+    document.getElementById('std-gen').textContent = '800 générations / an';
+    document.getElementById('std-btn').textContent = 'Choisir Standard annuel →';
+    document.getElementById('pro-price').innerHTML = '<sup>€</sup>39<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/an</span>';
+    document.getElementById('pro-equiv').textContent = 'soit 3,33€/mois — moins qu\'un verre en terrasse 🥂';
+    document.getElementById('pro-period').innerHTML = '<strong style="color:var(--green)">1500 générations</strong> par an';
+    document.getElementById('pro-gen').textContent = '1500 générations / an';
+    document.getElementById('pro-btn').textContent = 'Choisir Pro annuel →';
+  } else {
+    knob.style.transform = 'translateX(0)';
+    lblM.style.color = 'var(--purple)'; lblM.style.fontWeight = '600';
+    lblA.style.color = 'var(--muted)'; lblA.style.fontWeight = '400';
+    document.getElementById('std-price').innerHTML = '<sup>€</sup>4<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/mois</span>';
+    document.getElementById('std-equiv').textContent = '';
+    document.getElementById('std-period').innerHTML = '<strong style="color:var(--green)">70 générations</strong> par mois';
+    document.getElementById('std-gen').textContent = '70 générations / mois';
+    document.getElementById('std-btn').textContent = 'Choisir Standard mensuel →';
+    document.getElementById('pro-price').innerHTML = '<sup>€</sup>7<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/mois</span>';
+    document.getElementById('pro-equiv').textContent = '';
+    document.getElementById('pro-period').innerHTML = '<strong style="color:var(--green)">120 générations</strong> par mois';
+    document.getElementById('pro-gen').textContent = '120 générations / mois';
+    document.getElementById('pro-btn').textContent = 'Choisir Pro mensuel →';
+  }
+}
+
+function copyEmail(e){
+  e.preventDefault();
+  navigator.clipboard.writeText('bulletins.pro.app@gmail.com').then(()=>{
+    const el = document.getElementById('contact-link');
+    const orig = el.textContent;
+    el.textContent = '✓ Email copié !';
+    setTimeout(()=> el.textContent = orig, 2000);
+  });
+}
+</script>
 </body>
 </html>
