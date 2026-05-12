@@ -511,7 +511,7 @@
         <div class="price-period" id="std-period"><strong style="color:var(--green)">800 générations</strong> par an</div>
         <ul class="price-feats">
           <li id="std-gen">800 générations / an</li>
-          <li><strong>Idéal jusqu'à ~9 classes</strong></li>
+          <li id="std-ideal"><strong>Idéal jusqu'à ~9 classes</strong></li>
           <li>Synchronisation Drive</li>
           <li>Toutes matières + PP + CPE</li>
           <li>Export PRONOTE</li>
@@ -526,7 +526,7 @@
         <div class="price-period" id="pro-period"><strong style="color:var(--green)">1500 générations</strong> par an</div>
         <ul class="price-feats">
           <li id="pro-gen">1500 générations / an</li>
-          <li><strong>Idéal jusqu'à ~18 classes</strong></li>
+          <li id="pro-ideal"><strong>Idéal jusqu'à ~18 classes</strong></li>
           <li>Tout Standard inclus</li>
           <li>Accès prioritaire aux nouveautés</li>
         </ul>
@@ -664,11 +664,13 @@ function toggleBilling(){
     document.getElementById('std-period').innerHTML = '<strong style="color:var(--green)">800 générations</strong> par an';
     document.getElementById('std-gen').textContent = '800 générations / an';
     document.getElementById('std-btn').textContent = 'Choisir Standard annuel →';
+    document.getElementById('std-ideal').innerHTML = '<strong>Idéal jusqu\'à ~9 classes</strong>';
     document.getElementById('pro-price').innerHTML = '<sup>€</sup>39<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/an</span>';
     document.getElementById('pro-equiv').textContent = 'soit 3,33€/mois — moins qu\'un verre en terrasse 🥂';
     document.getElementById('pro-period').innerHTML = '<strong style="color:var(--green)">1500 générations</strong> par an';
     document.getElementById('pro-gen').textContent = '1500 générations / an';
     document.getElementById('pro-btn').textContent = 'Choisir Pro annuel →';
+    document.getElementById('pro-ideal').innerHTML = '<strong>Idéal jusqu\'à ~18 classes</strong>';
   } else {
     knob.style.transform = 'translateX(0)';
     lblM.style.color = 'var(--purple)'; lblM.style.fontWeight = '600';
@@ -678,11 +680,13 @@ function toggleBilling(){
     document.getElementById('std-period').innerHTML = '<strong style="color:var(--green)">70 générations</strong> par mois';
     document.getElementById('std-gen').textContent = '70 générations / mois';
     document.getElementById('std-btn').textContent = 'Choisir Standard mensuel →';
+    document.getElementById('std-ideal').innerHTML = '<strong>Idéal pour 2-3 classes</strong> par période de bulletins';
     document.getElementById('pro-price').innerHTML = '<sup>€</sup>7<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/mois</span>';
     document.getElementById('pro-equiv').textContent = '';
     document.getElementById('pro-period').innerHTML = '<strong style="color:var(--green)">120 générations</strong> par mois';
     document.getElementById('pro-gen').textContent = '120 générations / mois';
     document.getElementById('pro-btn').textContent = 'Choisir Pro mensuel →';
+    document.getElementById('pro-ideal').innerHTML = '<strong>Idéal pour 4-5 classes</strong> par période de bulletins';
   }
 }
 
