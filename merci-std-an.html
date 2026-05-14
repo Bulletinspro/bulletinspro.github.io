@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merci — BulletinsPro Standard Annuel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:#fdf8f2;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+    .card{background:#fff;border-radius:20px;padding:48px 40px;max-width:500px;width:100%;text-align:center;box-shadow:0 8px 40px rgba(28,24,48,.1);}
+    .check{font-size:3rem;margin-bottom:16px;}
+    h1{font-family:'Playfair Display',serif;font-size:1.8rem;color:#1c1830;margin-bottom:8px;}
+    .plan{font-size:.85rem;color:#7c7899;margin-bottom:32px;}
+    .code-box{background:#f0eaff;border:2px dashed #6B2FD9;border-radius:12px;padding:24px;margin-bottom:24px;}
+    .code-label{font-size:.75rem;font-family:'DM Sans',monospace;text-transform:uppercase;letter-spacing:.1em;color:#6B2FD9;margin-bottom:8px;}
+    .code{font-size:2rem;font-weight:700;color:#6B2FD9;letter-spacing:.15em;font-family:monospace;}
+    .copy-btn{background:#6B2FD9;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:.88rem;font-weight:600;cursor:pointer;margin-top:12px;font-family:'DM Sans',sans-serif;transition:background .15s;}
+    .copy-btn:hover{background:#5520b0;}
+    .steps{text-align:left;background:#fdf8f2;border-radius:12px;padding:20px 24px;margin-bottom:24px;}
+    .step{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;font-size:.88rem;color:#3d3858;line-height:1.5;}
+    .step:last-child{margin-bottom:0;}
+    .step-num{background:#6B2FD9;color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:1px;}
+    .cta{display:block;background:#6B2FD9;color:#fff;text-decoration:none;border-radius:10px;padding:14px 24px;font-weight:600;font-size:.95rem;margin-bottom:16px;transition:background .15s;}
+    .cta:hover{background:#5520b0;}
+    .contact{font-size:.78rem;color:#7c7899;}
+    .contact a{color:#6B2FD9;}
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="check">🎉</div>
+  <h1>Merci pour votre abonnement !</h1>
+  <div class="plan">BulletinsPro Standard — Annuel · 800 générations</div>
+
+  <div class="code-box">
+    <div class="code-label">Votre code d'accès</div>
+    <div class="code" id="code">BP-7K2M</div>
+    <button class="copy-btn" onclick="copyCode()">📋 Copier le code</button>
+  </div>
+
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div>Ouvrez BulletinsPro et connectez-vous avec Google</div></div>
+    <div class="step"><div class="step-num">2</div><div>Cliquez sur <strong>🔑 Code</strong> en bas de la barre latérale</div></div>
+    <div class="step"><div class="step-num">3</div><div>Entrez votre code et cliquez <strong>Activer</strong></div></div>
+  </div>
+
+  <a href="https://bulletinspro.github.io/bulletinspro" class="cta">Ouvrir BulletinsPro →</a>
+  <div class="contact">Une question ? <a href="mailto:bulletins.pro.app@gmail.com">bulletins.pro.app@gmail.com</a></div>
+</div>
+<script>
+function copyCode(){
+  navigator.clipboard.writeText('BP-7K2M').then(()=>{
+    const btn=document.querySelector('.copy-btn');
+    btn.textContent='✓ Copié !';
+    setTimeout(()=>btn.textContent='📋 Copier le code',2000);
+  });
+}
+</script>
+</body>
+</html>
