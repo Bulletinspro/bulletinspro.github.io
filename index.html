@@ -520,7 +520,7 @@
           <li>Export PRONOTE</li>
           <li>Génération en masse</li>
         </ul>
-        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn solid" id="std-btn" onclick="gtag('event','pricing_click',{event_category:'conversion',event_label:'standard_plan'})">Choisir Standard annuel →</a>
+        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn solid" id="std-btn" href="https://www.paypal.com/ncp/payment/RPKRNF8SRG4NQ" target="_blank" onclick="gtag('event','pricing_click',{event_category:'conversion',event_label:'standard_plan'})">Choisir Standard annuel →</a>
       </div>
       <div class="price-card">
         <span class="price-name">Pro</span>
@@ -533,7 +533,7 @@
           <li>Tout Standard inclus</li>
           <li>Accès prioritaire aux nouveautés</li>
         </ul>
-        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn ghost" id="pro-btn" onclick="gtag('event','pricing_click',{event_category:'conversion',event_label:'pro_plan'})">Choisir Pro annuel →</a>
+        <a href="https://bulletinspro.github.io/bulletinspro" class="price-btn ghost" id="pro-btn" href="https://www.paypal.com/ncp/payment/SYZDDBLXAKXS2" target="_blank" onclick="gtag('event','pricing_click',{event_category:'conversion',event_label:'pro_plan'})">Choisir Pro annuel →</a>
       </div>
     </div>
     <p style="text-align:center;margin-top:24px;font-size:1.05rem;color:var(--ink2);font-family:'Playfair Display',serif;font-style:italic;font-weight:700">Moins de temps sur les bulletins, plus de temps pour vous.</p>
@@ -667,6 +667,7 @@ function toggleBilling(){
     document.getElementById('std-period').innerHTML = '<strong style="color:var(--green)">800 générations</strong> par an';
     document.getElementById('std-gen').textContent = '800 générations / an';
     document.getElementById('std-btn').textContent = 'Choisir Standard annuel →';
+    document.getElementById('std-btn').href='https://www.paypal.com/ncp/payment/RPKRNF8SRG4NQ';
     document.getElementById('std-ideal').innerHTML = '<strong>Idéal jusqu\'à ~9 classes</strong>';
     document.getElementById('annual-badge').style.display='';
     document.getElementById('pro-price').innerHTML = '<sup>€</sup>39<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/an</span>';
@@ -674,6 +675,7 @@ function toggleBilling(){
     document.getElementById('pro-period').innerHTML = '<strong style="color:var(--green)">1500 générations</strong> par an';
     document.getElementById('pro-gen').textContent = '1500 générations / an';
     document.getElementById('pro-btn').textContent = 'Choisir Pro annuel →';
+    document.getElementById('pro-btn').href='https://www.paypal.com/ncp/payment/SYZDDBLXAKXS2';
     document.getElementById('pro-ideal').innerHTML = '<strong>Idéal jusqu\'à ~18 classes</strong>';
   } else {
     knob.style.transform = 'translateX(0)';
@@ -684,13 +686,15 @@ function toggleBilling(){
     document.getElementById('std-period').innerHTML = '<strong style="color:var(--green)">70 générations</strong> par mois';
     document.getElementById('std-gen').textContent = '70 générations / mois';
     document.getElementById('std-btn').textContent = 'Choisir Standard mensuel →';
+    document.getElementById('std-btn').href='https://www.paypal.com/ncp/payment/WMDVVMS4M4X6E';
     document.getElementById('std-ideal').innerHTML = '<strong>Idéal pour 2-3 classes</strong> par période de bulletins';
     document.getElementById('annual-badge').style.display='none';
     document.getElementById('pro-price').innerHTML = '<sup>€</sup>7<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/mois</span>';
     document.getElementById('pro-equiv').textContent = '';
-    document.getElementById('pro-period').innerHTML = '<strong style="color:var(--green)">120 générations</strong> par mois';
-    document.getElementById('pro-gen').textContent = '120 générations / mois';
+    document.getElementById('pro-period').innerHTML = '<strong style="color:var(--green)">140 générations</strong> par mois';
+    document.getElementById('pro-gen').textContent = '140 générations / mois';
     document.getElementById('pro-btn').textContent = 'Choisir Pro mensuel →';
+    document.getElementById('pro-btn').href='https://www.paypal.com/ncp/payment/LL5DKBWH7RZEL';
     document.getElementById('pro-ideal').innerHTML = '<strong>Idéal pour 4-5 classes</strong> par période de bulletins';
   }
 }
