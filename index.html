@@ -564,7 +564,11 @@
           <li>Export PRONOTE</li>
           <li>Génération en masse</li>
         </ul>
-        <a href="https://www.paypal.com/ncp/payment/RPKRNF8SRG4NQ" class="price-btn solid" id="std-btn" target="_blank" onclick="if(typeof gtag!=='undefined')gtag('event','pricing_click',{event_category:'conversion',event_label:'standard_plan'})">Choisir Standard annuel →</a>
+        <div style="margin-bottom:12px;padding:10px 12px;background:#f0eaff;border:1px solid #d8ccf5;border-radius:8px;display:flex;align-items:flex-start;gap:8px">
+          <input type="checkbox" id="cgv-check-landing" style="margin-top:3px;flex-shrink:0;accent-color:#6B2FD9;width:15px;height:15px;cursor:pointer" onchange="document.querySelectorAll('.paypal-landing').forEach(function(b){b.style.opacity=this.checked?'1':'0.4';b.style.pointerEvents=this.checked?'auto':'none';}.bind(this))">
+          <label for="cgv-check-landing" style="font-size:.75rem;color:#3d3858;cursor:pointer;line-height:1.5">J'ai lu et j'accepte les <a href="https://bulletinspro.github.io/cgv.html" target="_blank" style="color:#6B2FD9">CGV</a> et la <a href="https://bulletinspro.github.io/privacy.html" target="_blank" style="color:#6B2FD9">Politique de confidentialité</a></label>
+        </div>
+        <a href="https://www.paypal.com/ncp/payment/RPKRNF8SRG4NQ" class="price-btn solid paypal-landing" id="std-btn" target="_blank" style="opacity:0.4;pointer-events:none" onclick="if(typeof gtag!=='undefined')gtag('event','pricing_click',{event_category:'conversion',event_label:'standard_plan'})">Choisir Standard annuel →</a>
       </div>
       <div class="price-card">
         <span class="price-name">Pro</span>
@@ -577,7 +581,7 @@
           <li>Tout Standard inclus</li>
           <li>Accès prioritaire aux nouveautés</li>
         </ul>
-        <a href="https://www.paypal.com/ncp/payment/SYZDDBLXAKXS2" class="price-btn ghost" id="pro-btn" target="_blank" onclick="if(typeof gtag!=='undefined')gtag('event','pricing_click',{event_category:'conversion',event_label:'pro_plan'})">Choisir Pro annuel →</a>
+        <a href="https://www.paypal.com/ncp/payment/SYZDDBLXAKXS2" class="price-btn ghost paypal-landing" id="pro-btn" target="_blank" style="opacity:0.4;pointer-events:none" onclick="if(typeof gtag!=='undefined')gtag('event','pricing_click',{event_category:'conversion',event_label:'pro_plan'})">Choisir Pro annuel →</a>
       </div>
     </div>
     <p style="text-align:center;margin-top:24px;font-size:1.05rem;color:var(--ink2);font-family:'Playfair Display',serif;font-style:italic;font-weight:700">Moins de temps sur les bulletins, plus de temps pour vous.</p>
@@ -755,7 +759,7 @@ function toggleBilling(){
     document.getElementById('std-period').innerHTML = '<strong style="color:var(--green)">800 générations</strong> par an';
     document.getElementById('std-gen').textContent = '800 générations / an';
     document.getElementById('std-btn').textContent = 'Choisir Standard annuel →';
-    document.getElementById('std-btn').href='https://www.paypal.com/ncp/payment/RPKRNF8SRG4NQ';
+    document.getElementById('std-btn').href='https://www.paypal.com/ncp/payment/RPKRNF8SRG4NQ';const cb=document.getElementById('cgv-check-landing');if(cb&&!cb.checked){document.getElementById('std-btn').style.opacity='0.4';document.getElementById('std-btn').style.pointerEvents='none';}
     document.getElementById('std-ideal').innerHTML = '<strong>Idéal jusqu\'à ~9 classes</strong>';
     document.getElementById('annual-badge').style.display='';
     document.getElementById('pro-price').innerHTML = '<sup>€</sup>39<span style="font-size:1.5rem">.99</span><span style="font-size:.75rem;color:var(--muted);font-family:\'DM Sans\',sans-serif;font-weight:400">/an</span>';
